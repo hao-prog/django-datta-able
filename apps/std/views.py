@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
-from apps.home.student.models import Student
+from apps.std.models import Student
 
 
 @login_required(login_url="/login/")
