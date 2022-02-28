@@ -129,16 +129,15 @@ def icon(request):
 
 @login_required(login_url="/login/")
 def student(request):
-    students = Student.objects.filter(deleted=False)
+    students = Student.get_students()
     context = {"data": students}
     return render(request, "home/ui-students.html", context)
 
 @login_required(login_url="/login/")
 def student_delete(request):
     id = request.POST.get('student_id')
-    std = Student.objects.get(pk=id)
-    std.deleted = True
-    std.save()
+    std = Student.get_by_id(id)
+    std.delete()
     return redirect('/student')
 
 @login_required(login_url="/login/")
@@ -150,20 +149,18 @@ def student_add(request):
     fn = request.POST.get('fn')
     ln = request.POST.get('ln')
     usrn = request.POST.get('usrn')
-    std = Student(first_name=fn, last_name=ln, user_name=usrn)
     try:
-        std.clean_fields()
+        Student.create(fn, ln, usrn)
     except ValidationError as e:
-        context = {'std': std}
+        context = {'fn': fn, 'ln': ln, 'usrn': usrn}
         context = {**context, **dict(e)}
         return render(request, "home/ui-student-add.html", context)
-    std.save()
     return redirect('/student')
 
 @login_required(login_url="/login/")
 def student_edit_ui(request):
     student_id = request.POST.get('student_id')
-    std = Student.objects.get(pk=student_id)
+    std = Student.get_by_id(student_id)
     return render(request, "home/ui-student-edit.html", {'std': std})
 
 @login_required(login_url="/login/")
@@ -173,16 +170,14 @@ def student_edit(request):
     ln = request.POST.get('ln')
     usrn = request.POST.get('usrn')
     
-    std = Student.objects.get(pk=student_id)
-    std.first_name = fn
-    std.last_name = ln
-    std.user_name = usrn
+    std = Student.get_by_id(student_id)
     
     try:
-        std.clean_fields()
+        std.update(fn, ln, usrn)
+        
     except ValidationError as e:
         context = {'std': std}
         context = {**context, **dict(e)}
         return render(request, "home/ui-student-edit.html", context)
-    std.save()
+
     return redirect('/student')
