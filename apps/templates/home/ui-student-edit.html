@@ -1,0 +1,94 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Student Edit {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10"> Student Edit </h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/student">Student</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">Student Edit</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Student Edit</h5>
+                            </div>
+                            <div class="card-body">
+                                <h5>Student Informations</h5>
+                                <hr>
+                                <form action="/student_edit" method="post" id="edit_form">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="student_id" value="{{std.id}}">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input class="mb-3 form-control" type="text" placeholder="First Name"
+                                                name="fn" value="{{std.first_name}}">
+                                            <b style="color: red!important; margin-bottom: 2rem;"
+                                                class="form-text text-muted">{{first_name.0}}</b>
+                                            <input class="mb-3 form-control" type="text" placeholder="Last Name"
+                                                name="ln" value="{{std.last_name}}">
+                                            <b style="color: red!important; margin-bottom: 2rem;"
+                                                class="form-text text-muted">{{last_name.0}}</b>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input class="mb-3 form-control" type="text" placeholder="Username"
+                                                name="usrn" value="{{std.user_name}}">
+                                            <b style="color: red!important; margin-bottom: 2rem;"
+                                                class="form-text text-muted">{{user_name.0}}</b>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary" style="margin: auto"
+                                        title="Edit student" data-toggle="tooltip" onclick="edit_student()"> Edit <i
+                                            class="feather icon-edit"></i> </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    function edit_student() {
+        if (confirm("Are you sure you want to edit this student?")) {
+            var form = document.getElementById('edit_form');
+            form.submit();
+        } else {
+
+        }
+    }
+</script>
+{% endblock javascripts %}
