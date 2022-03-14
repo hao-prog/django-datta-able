@@ -66,6 +66,30 @@ body {
   position: relative;
 }
 
+.input_box {
+  border: 2px solid #568fe3;
+  width: 30%;
+  height: 43px;
+}
+
+.browse_button {
+  background-color: cornflowerblue;
+  align-items: center;
+  display: flex;
+  margin-left: 1%;
+  width: 12%;
+  justify-content: center;
+  cursor: pointer;
+  height: 43px;
+  color: black;
+}
+
+.avatar {
+  width: 20%;
+  height: 100%;
+  border: 2px solid black;
+}
+
 *:focus {
   outline: none;
 }
