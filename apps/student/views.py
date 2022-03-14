@@ -64,22 +64,18 @@ def file_handle():
                         if fs.exists(file_path_pre_tmp):
                             fs.delete(file_path_pre_tmp)
 
-            kwargs.update(
-                {
-                    "data": {
-                        "name_value": name_value,
-                        "avatar_value": avatar_value,
-                        "address_value": address_value,
-                        "phone_value": phone_value,
-                        "birthday_value": birthday_value,
-                        "specialized_value": specialized_value,
-                        "description_value": description_value,
-                        "uploaded_file": uploaded_file,
-                        "file_path_tmp": file_path_tmp,
-                        "avatar_tmp_value": avatar_tmp_value,
-                        "context": context,
-                    }
-                }
+            args += (
+                name_value,
+                avatar_value,
+                address_value,
+                phone_value,
+                birthday_value,
+                specialized_value,
+                description_value,
+                uploaded_file,
+                file_path_tmp,
+                avatar_tmp_value,
+                context,
             )
             result = func(*args, **kwargs)
             if result:
@@ -111,19 +107,21 @@ def file_handle():
 
 # @login_required(login_url="/login/")
 @file_handle()
-def student_add(request, data):
+def student_add(
+    request,
+    name_value,
+    avatar_value,
+    address_value,
+    phone_value,
+    birthday_value,
+    specialized_value,
+    description_value,
+    uploaded_file,
+    file_path_tmp,
+    avatar_tmp_value,
+    context,
+):
     fs = FileSystemStorage()
-    name_value = data["name_value"]
-    avatar_value = data["avatar_value"]
-    address_value = data["address_value"]
-    phone_value = data["phone_value"]
-    birthday_value = data["birthday_value"]
-    specialized_value = data["specialized_value"]
-    description_value = data["description_value"]
-    uploaded_file = data["uploaded_file"]
-    file_path_tmp = data["file_path_tmp"]
-    avatar_tmp_value = data["avatar_tmp_value"]
-    context = data["context"]
 
     try:
         student = Student(
@@ -140,7 +138,7 @@ def student_add(request, data):
             raise ValidationError({})
     except ValidationError as e:
         if student.birthday:
-            student.birthday = student.birthday.strftime(DATE_INPUT_FORMATS) 
+            student.birthday = student.birthday.strftime(DATE_INPUT_FORMATS)
         if uploaded_file:
             if fs.exists(file_path_tmp):
                 fs.delete(file_path_tmp)
@@ -181,19 +179,21 @@ def student_edit_ui(request):
 
 # @login_required(login_url="/login/")
 @file_handle()
-def student_edit(request, data):
+def student_edit(
+    request,
+    name_value,
+    avatar_value,
+    address_value,
+    phone_value,
+    birthday_value,
+    specialized_value,
+    description_value,
+    uploaded_file,
+    file_path_tmp,
+    avatar_tmp_value,
+    context,
+):
     fs = FileSystemStorage()
-    name_value = data["name_value"]
-    avatar_value = data["avatar_value"]
-    address_value = data["address_value"]
-    phone_value = data["phone_value"]
-    birthday_value = data["birthday_value"]
-    specialized_value = data["specialized_value"]
-    description_value = data["description_value"]
-    uploaded_file = data["uploaded_file"]
-    file_path_tmp = data["file_path_tmp"]
-    avatar_tmp_value = data["avatar_tmp_value"]
-    context = data["context"]
 
     student_id = request.POST.get("student_id")
     student = Student.get_by_id(student_id)
@@ -235,6 +235,7 @@ def student_edit(request, data):
         specialized=specialized_value,
         description=description_value,
     )
+
 
 # @login_required(login_url="/login/")
 def student_detail(request):
