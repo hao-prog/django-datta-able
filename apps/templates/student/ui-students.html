@@ -58,11 +58,11 @@
                                         </thead>
                                         <tbody>
                                             {% for obj in data %}
-                                            <tr onclick="view_detail(this, '{{obj.id}}')" style="cursor: pointer;">
-                                                <th scope="row" style="vertical-align: middle;">{{ forloop.counter }}</th>
-                                                <td style="vertical-align: middle;">{{obj.name}}</td>
-                                                <td style="vertical-align: middle;">{{obj.birthday}}</td>
-                                                <td style="vertical-align: middle;"> {{SPECIALIZED_ARR|get_item:obj.specialized}}
+                                            <tr>
+                                                <th scope="row" onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{ forloop.counter }}</th>
+                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
+                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{obj.birthday}}</td>
+                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;"> {{SPECIALIZED_ARR|get_item:obj.specialized}}
                                                 </td>
                                                 <td>
                                                     <form action="/student_edit_ui" method="post">
@@ -118,12 +118,9 @@
     }
 
     function view_detail(row, id) {
-        // your page initialization code here
-        // the DOM will be available here
         window.location = 'student_detail?id=' + id;
 
     };
 
-    // window.onload = delete_student();
 </script>
 {% endblock javascripts %}

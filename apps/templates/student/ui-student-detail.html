@@ -7,6 +7,8 @@
 
 {% block content %}
 
+{% load student_extras %}
+
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
         <div class="page-header">
@@ -40,21 +42,46 @@
                                 <hr>
 
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <input class="mb-3 form-control" type="text" placeholder="First Name" name="fn"
-                                            value="{{std.first_name}}">
-                                        <b style="color: red!important; margin-bottom: 2rem;"
-                                            class="form-text text-muted">{{first_name.0}}</b>
-                                        <input class="mb-3 form-control" type="text" placeholder="Last Name" name="ln"
-                                            value="{{std.last_name}}">
-                                        <b style="color: red!important; margin-bottom: 2rem;"
-                                            class="form-text text-muted">{{last_name.0}}</b>
+                                    <label style="margin-left: 1%;" class="mb-3">Name</label>
+                                    <div class="input-group mb-3">
+                                        <div class="form-control mb-3"> {{std.name}} </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input class="mb-3 form-control" type="text" placeholder="Username" name="usrn"
-                                            value="{{std.user_name}}">
-                                        <b style="color: red!important; margin-bottom: 2rem;"
-                                            class="form-text text-muted">{{user_name.0}}</b>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Avatar</label>
+                                    <div class="input-group mb-3">
+                                        <input type="hidden" name="avatar_tmp" value="{{avatar_tmp}}">
+                                        <div style="width: 100%; margin-bottom: 2%; height: 234px;">
+                                            <img id="img" class="avatar"
+                                                src="/static/assets/images/student/{{std.avatar}}">
+                                        </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Address</label>
+                                    <div class="input-group mb-3">
+                                        <div class="mb-3 form-control"> {{std.address}} </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Phone</label>
+                                    <div class="input-group mb-3">
+                                        <div class="mb-3 form-control"> {{std.phone}} </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Birthday</label>
+                                    <div class="input-group mb-3">
+                                        <div class="mb-3 form-control"> {{std.birthday}} </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Specialized</label>
+                                    <div class="input-group mb-3">
+                                        <div class="mb-3 form-control">
+                                            {{SPECIALIZED_ARR|get_item:std.specialized}}
+                                        </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Description</label>
+                                    <div class="input-group mb-3">
+                                        <textarea readonly class="form-control mb-3" id="" rows="3" placeholder="Description"
+                                            name="description">{{std.description}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -73,13 +100,5 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 <script>
-    function add_student() {
-        if (confirm("Are you sure you want to add this student?")) {
-            var form = document.getElementById('add_form');
-            form.submit();
-        } else {
-
-        }
-    }
 </script>
 {% endblock javascripts %}

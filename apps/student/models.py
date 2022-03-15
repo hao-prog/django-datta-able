@@ -55,6 +55,6 @@ class Student(models.Model):
         self.description = description
         self.save()
 
-    # def delete(self):
-    #     self.deleted = True
-    #     self.save()
+    def delete(self):
+        self.deleted = True
+        self.save()
