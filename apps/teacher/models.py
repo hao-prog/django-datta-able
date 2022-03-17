@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from core.settings import DATE_INPUT_FORMATS
 
 
 class Teacher(models.Model):
@@ -16,3 +17,11 @@ class Teacher(models.Model):
     specialized = models.CharField(max_length=10)
     degree = models.CharField(max_length=10)
     deleted = models.BooleanField(default=False)
+
+    def get_by_id(id):
+        teacher = Teacher.objects.get(pk=id, deleted=False)
+        teacher.birthday = teacher.birthday.strftime(DATE_INPUT_FORMATS)
+        return teacher
+
+    def get_teachers():
+        return Teacher.objects.filter(deleted=False)

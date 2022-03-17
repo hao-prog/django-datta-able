@@ -30,8 +30,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://" + config("SERVER", default="127.0.0.1"),
 ]
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'apps/static/assets/images')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "apps/static/assets/images")
+MEDIA_URL = "/media/"
 
 # Application definition
 
@@ -141,13 +141,20 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = (os.path.join(CORE_DIR, "apps/static"),)
 
 SPECIALIZED_ARR = {
-    "001": "Khoa hoc may tinh",
-    "002": "Khoa hoc du lieu",
-    "003": "Hai duong hoc",
+    "001": "Khoa học máy tính",
+    "002": "Khoa học dữ liệu",
+    "003": "Hải dương học",
+}
+
+DEGREE_ARR = {
+    "001": "Cử nhân",
+    "002": "Thạc sĩ",
+    "003": "Tiến sĩ",
+    "004": "Phó giáo sư",
+    "005": "Giáo sư",
 }
 
 DATE_INPUT_FORMATS = "%Y-%m-%d"
-
 
 
 #############################################################
