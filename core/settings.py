@@ -154,6 +154,8 @@ DEGREE_ARR = {
     "005": "Giáo sư",
 }
 
+MEDIA_FOLDER_PATH = "apps/static/assets/images/"
+
 DATE_INPUT_FORMATS = "%Y-%m-%d"
 
 
