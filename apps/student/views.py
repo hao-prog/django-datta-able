@@ -39,29 +39,19 @@ def student_add(request):
     birthday_value = request.POST.get("birthday")
     specialized_value = request.POST.get("specialized")
     description_value = request.POST.get("description")
-    avatar_tmp = request.POST.get("avatar_tmp")  # upload file in tmp folder
+    avatar_tmp = request.POST.get("avatar_tmp")  # old avatar_tmp
 
-    avatar_tmp_value = (
-        avatar_tmp or ""
-    )  # uploaded file which is going to be in tmp folder
+    avatar_tmp_value = avatar_tmp  # new avatar_tmp
     avatar_value = avatar_tmp or ""
     file_path_tmp = "tmp/student/" + avatar_tmp
-    uploaded_file = None
 
     if "avatar" in request.FILES:
-        uploaded_file = request.FILES["avatar"]
-        avatar_value = uploaded_file.name
-        message = validate_file(uploaded_file)
-        context["avatar"] = message
-        if not message:  # valid file
-            file_path_tmp = "tmp/student/" + avatar_value  # new tmp file
-            avatar_tmp_value = avatar_value
-            if avatar_tmp:
-                file_path_pre_tmp = "tmp/student/" + avatar_tmp
-                if fs.exists(file_path_pre_tmp):  # delete old tmp file if exists
-                    fs.delete(file_path_pre_tmp)
-        else:
-            uploaded_file = None
+        context["avatar"], avatar_value, file_path_tmp, avatar_tmp_value = upload_file(
+            request.FILES["avatar"],
+            "tmp/student/",
+            file_path_tmp,
+            avatar_tmp,
+        )
 
     try:
         student = Student(
@@ -79,8 +69,6 @@ def student_add(request):
     except ValidationError as e:
         if student.birthday:
             student.birthday = student.birthday.strftime(DATE_INPUT_FORMATS)
-        if uploaded_file:
-            upload_file(uploaded_file, "tmp/student/", file_path_tmp, folder_path)
 
         context.update(
             {
@@ -107,10 +95,7 @@ def student_add(request):
         description=description_value,
     )
 
-    if uploaded_file:
-        upload_file(uploaded_file, "student/", file_path_tmp, folder_path)
-    elif avatar_tmp:
-        move_tmp_file(folder_path, file_path_tmp, avatar_tmp)
+    move_tmp_file(folder_path, file_path_tmp, avatar_tmp_value)
 
     return redirect("/student")
 
@@ -135,27 +120,19 @@ def student_edit(request):
     birthday_value = request.POST.get("birthday")
     specialized_value = request.POST.get("specialized")
     description_value = request.POST.get("description")
-    avatar_tmp = request.POST.get("avatar_tmp") # upload file in tmp folder
+    avatar_tmp = request.POST.get("avatar_tmp")  # upload file in tmp folder
 
-    avatar_tmp_value = avatar_tmp or "" # uploaded file which is going to be in tmp folder
+    avatar_tmp_value = avatar_tmp  # new avatar_tmp
     avatar_value = avatar_tmp or ""
     file_path_tmp = "tmp/student/" + avatar_tmp
-    uploaded_file = None
 
     if "avatar" in request.FILES:
-        uploaded_file = request.FILES["avatar"]
-        avatar_value = uploaded_file.name
-        message = validate_file(uploaded_file)
-        context["avatar"] = message
-        if not message:  # valid file
-            file_path_tmp = "tmp/student/" + avatar_value  # new tmp file
-            avatar_tmp_value = avatar_value
-            if avatar_tmp:
-                file_path_pre_tmp = "tmp/student/" + avatar_tmp
-                if fs.exists(file_path_pre_tmp):  # delete old tmp file if exists
-                    fs.delete(file_path_pre_tmp)
-        else:
-            uploaded_file = None
+        context["avatar"], avatar_value, file_path_tmp, avatar_tmp_value = upload_file(
+            request.FILES["avatar"],
+            "tmp/student/",
+            file_path_tmp,
+            avatar_tmp,
+        )
 
     student = Student.get_by_id(student_id)
     if not avatar_value:
@@ -173,8 +150,6 @@ def student_edit(request):
             raise ValidationError({})
     except ValidationError as e:
         student.birthday = student.birthday.strftime(DATE_INPUT_FORMATS)
-        if uploaded_file:
-            upload_file(uploaded_file, "tmp/student/", file_path_tmp, folder_path)
 
         context.update(
             {
@@ -195,10 +170,7 @@ def student_edit(request):
         description=description_value,
     )
 
-    if uploaded_file:
-        upload_file(uploaded_file, "student/", file_path_tmp, folder_path)
-    elif avatar_tmp:
-        move_tmp_file(folder_path, file_path_tmp, avatar_tmp)
+    move_tmp_file(folder_path, file_path_tmp, avatar_tmp_value)
 
     return redirect("/student")
 

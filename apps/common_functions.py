@@ -14,22 +14,38 @@ def validate_file(uploaded_file):
     return message
 
 
-def upload_file(uploaded_file, folder, file_path_tmp, folder_path):
-    if not os.path.exists(folder_path):
-        os.makedirs(os.path.dirname(folder_path))
-
+def upload_file(uploaded_file, folder, file_path_tmp, avatar_tmp):
     fs = FileSystemStorage()
 
-    file_path = folder + uploaded_file.name
-    if fs.exists(file_path_tmp):
-        fs.delete(file_path_tmp)
-    if fs.exists(file_path):
-        fs.delete(file_path)
+    message = validate_file(uploaded_file)
+    avatar_value = uploaded_file.name
+    avatar_tmp_value = avatar_tmp
 
-    fs.save(file_path, uploaded_file)
+    if not message:  # valid file
+        file_path_tmp = folder + avatar_value  # new tmp file
+        avatar_tmp_value = avatar_value
+        if avatar_tmp:
+            file_path_pre_tmp = folder + avatar_tmp
+            if fs.exists(file_path_pre_tmp):  # delete old tmp file if exists
+                fs.delete(file_path_pre_tmp)
+    else:
+        uploaded_file = None
+
+    if uploaded_file:
+        file_path = folder + uploaded_file.name
+        if fs.exists(file_path_tmp):
+            fs.delete(file_path_tmp)
+
+        fs.save(file_path, uploaded_file)
+
+    return message, avatar_value, file_path_tmp, avatar_tmp_value
 
 
 def move_tmp_file(folder_path, file_path_tmp, avatar_tmp):
-    file_path_tmp_os = "apps/static/assets/images/" + file_path_tmp
-    file_path_os = folder_path + avatar_tmp
-    os.rename(file_path_tmp_os, file_path_os)
+    if not os.path.exists(folder_path):
+        os.makedirs(os.path.dirname(folder_path))
+
+    if avatar_tmp:
+        file_path_tmp_os = "apps/static/assets/images/" + file_path_tmp
+        file_path_os = folder_path + avatar_tmp
+        os.rename(file_path_tmp_os, file_path_os)
