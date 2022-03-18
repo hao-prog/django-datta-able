@@ -7,7 +7,6 @@ from django.core.files.storage import FileSystemStorage
 from core.settings import DATE_INPUT_FORMATS, MEDIA_FOLDER_PATH_STUDENT
 
 
-# @login_required(login_url="/login/")
 def teacher(request):
     teachers = Teacher.get_teachers()
     context = {"data": teachers}

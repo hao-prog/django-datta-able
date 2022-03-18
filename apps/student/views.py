@@ -6,14 +6,12 @@ from apps.student.models import Student
 from core.settings import MEDIA_FOLDER_PATH_STUDENT
 
 
-# @login_required(login_url="/login/")
 def student(request):
     students = Student.get_students()
     context = {"data": students}
     return render(request, "student/ui-students.html", context)
 
 
-# @login_required(login_url="/login/")
 def student_delete(request):
     id = request.POST.get("student_id")
     std = Student.get_by_id(id)
@@ -21,12 +19,10 @@ def student_delete(request):
     return redirect("/student")
 
 
-# @login_required(login_url="/login/")
 def student_add_ui(request):
     return render(request, "student/ui-student-add.html")
 
 
-# @login_required(login_url="/login/")
 def student_add(request):
     name = request.POST.get("name")
     address = request.POST.get("address")
@@ -58,14 +54,12 @@ def student_add(request):
     return redirect("/student")
 
 
-# @login_required(login_url="/login/")
 def student_edit_ui(request):
     student_id = request.POST.get("student_id")
     std = Student.get_by_id(student_id)
     return render(request, "student/ui-student-edit.html", {"std": std})
 
 
-# @login_required(login_url="/login/")
 def student_edit(request):
     student_id = request.POST.get("student_id")
     name = request.POST.get("name")
@@ -100,7 +94,6 @@ def student_edit(request):
     return redirect("/student")
 
 
-# @login_required(login_url="/login/")
 def student_detail(request):
     id = request.GET.get("id")
     try:
