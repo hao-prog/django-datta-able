@@ -43,6 +43,7 @@ class Student(models.Model):
             specialized=specialized,
             description=description,
         )
+        std.clean_fields()
         std.save()
 
     def update(self, name, avatar, address, phone, birthday, specialized, description):
@@ -53,6 +54,7 @@ class Student(models.Model):
         self.birthday = birthday
         self.specialized = specialized
         self.description = description
+        self.clean_fields()
         self.save()
 
     def delete(self):

@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from apps.teacher.models import Teacher
 from django.core.files.storage import FileSystemStorage
-from core.settings import DATE_INPUT_FORMATS
+from core.settings import DATE_INPUT_FORMATS, MEDIA_FOLDER_PATH_STUDENT
 
 
 # @login_required(login_url="/login/")
@@ -13,25 +13,27 @@ def teacher(request):
     context = {"data": teachers}
     return render(request, "teacher/ui-teachers.html", context)
 
+
 def teacher_add_ui(request):
     return render(request, "teacher/ui-teacher-add.html")
 
-def teacher_add(
-    request,
-    name_value,
-    avatar_value,
-    address_value,
-    phone_value,
-    birthday_value,
-    specialized_value,
-    description_value,
-    uploaded_file,
-    file_path_tmp,
-    avatar_tmp_value,
-    context,
-    folder = 'teacher/',
-):
+
+def teacher_add(request):
     fs = FileSystemStorage()
+    folder_path = MEDIA_FOLDER_PATH_STUDENT + "teacher/"
+    context = {}
+
+    name_value = request.POST.get("name")
+    address_value = request.POST.get("address")
+    phone_value = request.POST.get("phone")
+    birthday_value = request.POST.get("birthday")
+    specialized_value = request.POST.get("specialized")
+    description_value = request.POST.get("description")
+    avatar_tmp = request.POST.get("avatar_tmp")  # old avatar_tmp
+
+    avatar_tmp_value = avatar_tmp  # new avatar_tmp
+    avatar_value = avatar_tmp or ""
+    file_path_tmp = "tmp/teacher/" + avatar_tmp
 
     try:
         teacher = Teacher(
@@ -49,10 +51,6 @@ def teacher_add(
     except ValidationError as e:
         if teacher.birthday:
             teacher.birthday = teacher.birthday.strftime(DATE_INPUT_FORMATS)
-        if uploaded_file:
-            if fs.exists(file_path_tmp):
-                fs.delete(file_path_tmp)
-            fs.save("tmp/teacher/" + uploaded_file.name, uploaded_file)
 
         context.update(
             {

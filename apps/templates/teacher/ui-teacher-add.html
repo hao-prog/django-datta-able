@@ -112,6 +112,23 @@
                                             </select>
                                         </div>
 
+                                        <label style="margin-left: 1%;" class="mb-3">Degree</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{specialized.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <select class="mb-3 form-control" type="text" placeholder="Specialized"
+                                                name="specialized">
+                                                <option value=""> </option>
+                                                {% for v, n in SPECIALIZED_ARR.items %}
+                                                {% if v == specialized_value %}
+                                                <option value="{{v}}" selected> {{n}}</option>
+                                                {% else %}
+                                                <option value="{{v}}"> {{n}}</option>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
                                         <label style="margin-left: 1%;" class="mb-3">Description</label>
                                         <b style="color: red!important; margin-left: 3%;"
                                             class="text-muted">{{description.0}}</b>

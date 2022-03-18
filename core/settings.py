@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "apps.student",
     "apps.teacher",
     "django_extensions",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -154,9 +155,11 @@ DEGREE_ARR = {
     "005": "Giáo sư",
 }
 
-MEDIA_FOLDER_PATH = "apps/static/assets/images/"
+MEDIA_FOLDER_PATH_STUDENT = "student/"
 
 DATE_INPUT_FORMATS = "%Y-%m-%d"
+
+DEFAULT_FILE_STORAGE = "storages.backends.overwrite.OverwriteStorage"
 
 
 #############################################################
