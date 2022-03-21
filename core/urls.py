@@ -13,6 +13,8 @@ urlpatterns = [
     path("", include("apps.authentication.urls")),  # Auth routes - login / register
     path("", include("apps.student.urls")),
     path("", include("apps.teacher.urls")),
+    path("", include("apps.subject.urls")),
+    
 
 
     path("", include("apps.home.urls")),  # UI Kits Html files

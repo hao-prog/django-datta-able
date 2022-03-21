@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} UI Student Add {% endblock %}
+{% block title %} UI Subject Edit {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -14,12 +14,12 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10"> Student Add </h5>
+                            <h5 class="m-b-10"> Subject Edit </h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="/student">Student</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Student Add</a></li>
+                            <li class="breadcrumb-item"><a href="/subject">Subject</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">Subject Edit</a></li>
                         </ul>
                     </div>
                 </div>
@@ -33,13 +33,14 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Student Add</h5>
+                                <h5>Subject Edit</h5>
                             </div>
                             <div class="card-body">
-                                <h5>Student Informations</h5>
+                                <h5>Subject Informations</h5>
                                 <hr>
-                                <form action="/student_add" method="post" id="add_form" enctype="multipart/form-data">
+                                <form action="/subject_edit" method="post" id="edit_form" enctype="multipart/form-data">
                                     {% csrf_token %}
+                                    <input type="hidden" name="subject_id" value="{{record_subject.id}}">
 
                                     <div class="row">
                                         <label style="margin-left: 1%;" class="mb-3">Name</label>
@@ -47,7 +48,7 @@
                                             class="text-muted">{{name.0}}</b>
                                         <div class="input-group mb-3">
                                             <input class="form-control mb-3" type="text" placeholder="Name" name="name"
-                                                value="{{name_value}}" id="name">
+                                                value="{{record_subject.name}}" id="name">
                                         </div>
 
                                         <label style="margin-left: 1%;" class="mb-3">Avatar</label>
@@ -56,11 +57,11 @@
                                         <div class="input-group mb-3" style="height: 310px;">
                                             <div style="width: 100%; margin-bottom: 2%; height: 234px;">
                                                 <img id="img" class="avatar"
-                                                    src="/static/assets/images/tmp/student/{{avatar_value}}"
+                                                    src="/static/assets/images/subject/{{record_subject.avatar}}"
                                                     onerror="this.src='static/assets/images/user/user-2.png'; this.onerror=null;">
                                             </div>
                                             <div class='input_box' id='fileNameTextBox'>
-                                                {{avatar_value}}
+                                                {{record_subject.avatar}}
                                             </div>
                                             <label class="browse_button" for="avatar">
                                                 Browse
@@ -69,61 +70,19 @@
                                                 onchange="getFileData(this);">
                                         </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Address</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{address.0}} </b>
-                                        <div class="input-group mb-3">
-                                            <input class="mb-3 form-control" type="text" placeholder="Address"
-                                                name="address" value="{{address_value}}">
-                                        </div>
-
-                                        <label style="margin-left: 1%;" class="mb-3">Phone</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{phone.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="mb-3 form-control" type="text" placeholder="Phone"
-                                                name="phone" value="{{phone_value}}">
-                                        </div>
-
-                                        <label style="margin-left: 1%;" class="mb-3">Birthday</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{birthday.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="mb-3 form-control" type="date"
-                                                placeholder="Birthday (YYYY-MM-DD)" name="birthday"
-                                                value="{{birthday_value}}">
-                                        </div>
-
-                                        <label style="margin-left: 1%;" class="mb-3">Specialized</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{specialized.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" placeholder="Specialized"
-                                                name="specialized">
-                                                <option value=""> </option>
-                                                {% for v, n in SPECIALIZED_ARR.items %}
-                                                {% if v == specialized_value %}
-                                                <option value="{{v}}" selected> {{n}}</option>
-                                                {% else %}
-                                                <option value="{{v}}"> {{n}}</option>
-                                                {% endif %}
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-
                                         <label style="margin-left: 1%;" class="mb-3">Description</label>
                                         <b style="color: red!important; margin-left: 3%;"
                                             class="text-muted">{{description.0}}</b>
                                         <div class="input-group mb-3">
                                             <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
-                                                name="description">{{description_value}}</textarea>
+                                                name="description">{{record_subject.description}}</textarea>
                                         </div>
                                     </div>
                                 </form>
                                 <div class="row">
                                     <button type="button" class="btn btn-primary" style="margin: auto"
-                                        title="Add new student" data-toggle="tooltip" onclick="add_student()"> Add <i
-                                            class="feather icon-plus-square"></i> </button>
+                                        title="Edit subject" data-toggle="tooltip" onclick="edit_subject()"> Edit <i
+                                            class="feather icon-edit"></i> </button>
                                 </div>
                             </div>
 
@@ -141,9 +100,9 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 <script>
-    function add_student() {
-        if (confirm("Are you sure you want to add this student?")) {
-            var form = document.getElementById('add_form');
+    function edit_subject() {
+        if (confirm("Are you sure you want to edit this subject?")) {
+            var form = document.getElementById('edit_form');
             form.submit();
         } else {
 

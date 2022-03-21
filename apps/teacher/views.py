@@ -1,10 +1,9 @@
-import os
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from apps.teacher.models import Teacher
-from django.core.files.storage import FileSystemStorage
-from core.settings import DATE_INPUT_FORMATS, MEDIA_FOLDER_PATH_STUDENT
+from apps.common_functions import upload_file
+from core.settings import MEDIA_FOLDER_PATH_TEACHER
 
 
 def teacher(request):
@@ -18,60 +17,95 @@ def teacher_add_ui(request):
 
 
 def teacher_add(request):
-    fs = FileSystemStorage()
-    folder_path = MEDIA_FOLDER_PATH_STUDENT + "teacher/"
-    context = {}
+    name = request.POST.get("name")
+    address = request.POST.get("address")
+    phone = request.POST.get("phone")
+    birthday = request.POST.get("birthday")
+    specialized = request.POST.get("specialized")
+    degree = request.POST.get("degree")
+    description = request.POST.get("description")
+    avatar = ""
 
-    name_value = request.POST.get("name")
-    address_value = request.POST.get("address")
-    phone_value = request.POST.get("phone")
-    birthday_value = request.POST.get("birthday")
-    specialized_value = request.POST.get("specialized")
-    description_value = request.POST.get("description")
-    avatar_tmp = request.POST.get("avatar_tmp")  # old avatar_tmp
-
-    avatar_tmp_value = avatar_tmp  # new avatar_tmp
-    avatar_value = avatar_tmp or ""
-    file_path_tmp = "tmp/teacher/" + avatar_tmp
+    if "avatar" in request.FILES:
+        try:
+            avatar = upload_file(request.FILES["avatar"], MEDIA_FOLDER_PATH_TEACHER)
+        except ValidationError as e:
+            return render(request, "teacher/ui-teacher-add.html", dict(e))
 
     try:
-        teacher = Teacher(
-            name=name_value,
-            avatar=avatar_value,
-            address=address_value,
-            phone=phone_value,
-            birthday=birthday_value,
-            specialized=specialized_value,
-            description=description_value,
+        Teacher.create(
+            name=name,
+            avatar=avatar,
+            address=address,
+            phone=phone,
+            birthday=birthday,
+            specialized=specialized,
+            degree=degree,
+            description=description,
         )
-        teacher.clean_fields()
-        if "avatar" in context:
-            raise ValidationError({})
     except ValidationError as e:
-        if teacher.birthday:
-            teacher.birthday = teacher.birthday.strftime(DATE_INPUT_FORMATS)
+        return render(request, "teacher/ui-teacher-add.html", dict(e))
 
-        context.update(
-            {
-                "name_value": name_value,
-                "avatar_value": avatar_value,
-                "address_value": address_value,
-                "phone_value": phone_value,
-                "birthday_value": birthday_value,
-                "specialized_value": specialized_value,
-                "description_value": description_value,
-                "avatar_tmp": avatar_tmp_value,
-            }
-        )
-        context = {**context, **dict(e)}
-        return render(request, "teacher/ui-teacher-add.html", context)
+    return redirect("/teacher")
 
-    Teacher.create(
-        name=name_value,
-        avatar=avatar_value,
-        address=address_value,
-        phone=phone_value,
-        birthday=birthday_value,
-        specialized=specialized_value,
-        description=description_value,
+
+def teacher_edit_ui(request):
+    teacher_id = request.POST.get("teacher_id")
+    record_teacher = Teacher.get_by_id(teacher_id)
+    return render(
+        request, "teacher/ui-teacher-edit.html", {"record_teacher": record_teacher}
     )
+
+
+def teacher_edit(request):
+    teacher_id = request.POST.get("teacher_id")
+    name = request.POST.get("name")
+    address = request.POST.get("address")
+    phone = request.POST.get("phone")
+    birthday = request.POST.get("birthday")
+    specialized = request.POST.get("specialized")
+    degree = request.POST.get("degree")
+    description = request.POST.get("description")
+
+    teacher = Teacher.get_by_id(teacher_id)
+    avatar = teacher.avatar
+
+    if "avatar" in request.FILES:
+        try:
+            avatar = upload_file(request.FILES["avatar"], MEDIA_FOLDER_PATH_TEACHER)
+        except ValidationError as e:
+            return render(request, "teacher/ui-teacher-edit.html", dict(e))
+
+    try:
+        teacher.update(
+            name=name,
+            avatar=avatar,
+            address=address,
+            phone=phone,
+            birthday=birthday,
+            specialized=specialized,
+            degree=degree,
+            description=description,
+        )
+    except ValidationError as e:
+        return render(request, "teacher/ui-teacher-edit.html", dict(e))
+
+    return redirect("/teacher")
+
+
+def teacher_detail(request):
+    id = request.GET.get("id")
+    try:
+        record_teacher = Teacher.get_by_id(id)
+    except Exception as e:
+        return render(request, "home/page-404.html")
+    return render(
+        request, "teacher/ui-teacher-detail.html", {"record_teacher": record_teacher}
+    )
+
+
+def teacher_delete(request):
+    id = request.POST.get("teacher_id")
+    record_teacher = Teacher.get_by_id(id)
+    record_teacher.delete()
+    return redirect("/teacher")

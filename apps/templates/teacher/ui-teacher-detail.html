@@ -1,13 +1,13 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} UI Student Detail {% endblock %}
+{% block title %} UI Teacher Detail {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
 
-{% load student_extras %}
+{% load home_extras %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -16,12 +16,12 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10"> Student Detail </h5>
+                            <h5 class="m-b-10"> Teacher Detail </h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="/student">Student</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Student Detail</a></li>
+                            <li class="breadcrumb-item"><a href="/teacher">Teacher</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">Teacher Detail</a></li>
                         </ul>
                     </div>
                 </div>
@@ -35,16 +35,16 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Student Detail</h5>
+                                <h5>Teacher Detail</h5>
                             </div>
                             <div class="card-body">
-                                <h5>Student Informations</h5>
+                                <h5>Teacher Informations</h5>
                                 <hr>
 
                                 <div class="row">
                                     <label style="margin-left: 1%;" class="mb-3">Name</label>
                                     <div class="input-group mb-3">
-                                        <div class="form-control mb-3"> {{std.name}} </div>
+                                        <div class="form-control mb-3"> {{record_teacher.name}} </div>
                                     </div>
 
                                     <label style="margin-left: 1%;" class="mb-3">Avatar</label>
@@ -52,36 +52,43 @@
                                         <input type="hidden" name="avatar_tmp" value="{{avatar_tmp}}">
                                         <div style="width: 100%; margin-bottom: 2%; height: 234px;">
                                             <img id="img" class="avatar"
-                                                src="/static/assets/images/student/{{std.avatar}}">
+                                                src="/static/assets/images/teacher/{{record_teacher.avatar}}">
                                         </div>
                                     </div>
 
                                     <label style="margin-left: 1%;" class="mb-3">Address</label>
                                     <div class="input-group mb-3">
-                                        <div class="mb-3 form-control"> {{std.address}} </div>
+                                        <div class="mb-3 form-control"> {{record_teacher.address}} </div>
                                     </div>
 
                                     <label style="margin-left: 1%;" class="mb-3">Phone</label>
                                     <div class="input-group mb-3">
-                                        <div class="mb-3 form-control"> {{std.phone}} </div>
+                                        <div class="mb-3 form-control"> {{record_teacher.phone}} </div>
                                     </div>
 
                                     <label style="margin-left: 1%;" class="mb-3">Birthday</label>
                                     <div class="input-group mb-3">
-                                        <div class="mb-3 form-control"> {{std.birthday}} </div>
+                                        <div class="mb-3 form-control"> {{record_teacher.birthday}} </div>
                                     </div>
 
                                     <label style="margin-left: 1%;" class="mb-3">Specialized</label>
                                     <div class="input-group mb-3">
                                         <div class="mb-3 form-control">
-                                            {{SPECIALIZED_ARR|get_item:std.specialized}}
+                                            {{SPECIALIZED_ARR|get_item:record_teacher.specialized}}
+                                        </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Degree</label>
+                                    <div class="input-group mb-3">
+                                        <div class="mb-3 form-control">
+                                            {{DEGREE_ARR|get_item:record_teacher.degree}}
                                         </div>
                                     </div>
 
                                     <label style="margin-left: 1%;" class="mb-3">Description</label>
                                     <div class="input-group mb-3">
                                         <textarea readonly class="form-control mb-3" id="" rows="3" placeholder="Description"
-                                            name="description">{{std.description}}</textarea>
+                                            name="description">{{record_teacher.description}}</textarea>
                                     </div>
                                 </div>
                             </div>

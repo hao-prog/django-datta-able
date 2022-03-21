@@ -14,8 +14,8 @@ def student(request):
 
 def student_delete(request):
     id = request.POST.get("student_id")
-    std = Student.get_by_id(id)
-    std.delete()
+    record_student = Student.get_by_id(id)
+    record_student.delete()
     return redirect("/student")
 
 
@@ -56,8 +56,8 @@ def student_add(request):
 
 def student_edit_ui(request):
     student_id = request.POST.get("student_id")
-    std = Student.get_by_id(student_id)
-    return render(request, "student/ui-student-edit.html", {"std": std})
+    record_student = Student.get_by_id(student_id)
+    return render(request, "student/ui-student-edit.html", {"record_student": record_student})
 
 
 def student_edit(request):
@@ -97,7 +97,7 @@ def student_edit(request):
 def student_detail(request):
     id = request.GET.get("id")
     try:
-        std = Student.get_by_id(id)
+        record_student = Student.get_by_id(id)
     except Exception as e:
         return render(request, "home/page-404.html")
-    return render(request, "student/ui-student-detail.html", {"std": std})
+    return render(request, "student/ui-student-detail.html", {"record_student": record_student})

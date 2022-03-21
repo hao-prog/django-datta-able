@@ -25,3 +25,37 @@ class Teacher(models.Model):
 
     def get_teachers():
         return Teacher.objects.filter(deleted=False)
+
+    def create(
+        name, avatar, address, phone, birthday, specialized, degree, description
+    ):
+        teacher = Teacher(
+            name=name,
+            avatar=avatar,
+            address=address,
+            phone=phone,
+            birthday=birthday,
+            specialized=specialized,
+            degree=degree,
+            description=description,
+        )
+        teacher.clean_fields()
+        teacher.save()
+
+    def update(
+        self, name, avatar, address, phone, birthday, specialized, degree, description
+    ):
+        self.name = name
+        self.avatar = avatar
+        self.address = address
+        self.phone = phone
+        self.birthday = birthday
+        self.specialized = specialized
+        self.degree = degree
+        self.description = description
+        self.clean_fields()
+        self.save()
+
+    def delete(self):
+        self.deleted = True
+        self.save()

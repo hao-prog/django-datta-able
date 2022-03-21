@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "apps.authentication",
     "apps.student",
     "apps.teacher",
+    "apps.subject",
     "django_extensions",
     "storages",
 ]
@@ -156,6 +157,8 @@ DEGREE_ARR = {
 }
 
 MEDIA_FOLDER_PATH_STUDENT = "student/"
+MEDIA_FOLDER_PATH_TEACHER = "teacher/"
+MEDIA_FOLDER_PATH_SUBJECT = "subject/"
 
 DATE_INPUT_FORMATS = "%Y-%m-%d"
 

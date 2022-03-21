@@ -34,7 +34,7 @@ class Student(models.Model):
         return Student.objects.filter(deleted=False)
 
     def create(name, avatar, address, phone, birthday, specialized, description):
-        std = Student(
+        student = Student(
             name=name,
             avatar=avatar,
             address=address,
@@ -43,8 +43,8 @@ class Student(models.Model):
             specialized=specialized,
             description=description,
         )
-        std.clean_fields()
-        std.save()
+        student.clean_fields()
+        student.save()
 
     def update(self, name, avatar, address, phone, birthday, specialized, description):
         self.name = name

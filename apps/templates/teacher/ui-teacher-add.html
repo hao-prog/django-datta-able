@@ -99,15 +99,10 @@
                                         <b style="color: red!important; margin-left: 3%;"
                                             class="text-muted">{{specialized.0}}</b>
                                         <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" placeholder="Specialized"
-                                                name="specialized">
+                                            <select class="mb-3 form-control" type="text" name="specialized">
                                                 <option value=""> </option>
                                                 {% for v, n in SPECIALIZED_ARR.items %}
-                                                {% if v == specialized_value %}
-                                                <option value="{{v}}" selected> {{n}}</option>
-                                                {% else %}
-                                                <option value="{{v}}"> {{n}}</option>
-                                                {% endif %}
+                                                    <option value="{{v}}"> {{n}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -116,15 +111,10 @@
                                         <b style="color: red!important; margin-left: 3%;"
                                             class="text-muted">{{specialized.0}}</b>
                                         <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" placeholder="Specialized"
-                                                name="specialized">
+                                            <select class="mb-3 form-control" type="text" name="degree">
                                                 <option value=""> </option>
-                                                {% for v, n in SPECIALIZED_ARR.items %}
-                                                {% if v == specialized_value %}
-                                                <option value="{{v}}" selected> {{n}}</option>
-                                                {% else %}
-                                                <option value="{{v}}"> {{n}}</option>
-                                                {% endif %}
+                                                {% for v, n in DEGREE_ARR.items %}
+                                                    <option value="{{v}}"> {{n}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>

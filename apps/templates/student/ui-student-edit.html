@@ -40,7 +40,7 @@
                                 <hr>
                                 <form action="/student_edit" method="post" id="edit_form" enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    <input type="hidden" name="student_id" value="{{std.id}}">
+                                    <input type="hidden" name="student_id" value="{{record_student.id}}">
 
                                     <div class="row">
                                         <label style="margin-left: 1%;" class="mb-3">Name</label>
@@ -48,21 +48,20 @@
                                             class="text-muted">{{name.0}}</b>
                                         <div class="input-group mb-3">
                                             <input class="form-control mb-3" type="text" placeholder="Name" name="name"
-                                                value="{{std.name}}" id="name">
+                                                value="{{record_student.name}}" id="name">
                                         </div>
 
                                         <label style="margin-left: 1%;" class="mb-3">Avatar</label>
                                         <b style="color: red!important; margin-left: 3%;"
                                             class="text-muted">{{avatar.0}}</b>
                                         <div class="input-group mb-3" style="height: 310px;">
-                                            <input type="hidden" name="avatar_tmp" value="{{avatar_tmp}}">
                                             <div style="width: 100%; margin-bottom: 2%; height: 234px;">
                                                 <img id="img" class="avatar"
-                                                    src="/static/assets/images/student/{{std.avatar}}"
+                                                    src="/static/assets/images/student/{{record_student.avatar}}"
                                                     onerror="this.src='static/assets/images/user/user-2.png'; this.onerror=null;">
                                             </div>
                                             <div class='input_box' id='fileNameTextBox'>
-                                                {{std.avatar}}
+                                                {{record_student.avatar}}
                                             </div>
                                             <label class="browse_button" for="avatar">
                                                 Browse
@@ -76,7 +75,7 @@
                                             class="text-muted">{{address.0}} </b>
                                         <div class="input-group mb-3">
                                             <input class="mb-3 form-control" type="text" placeholder="Address"
-                                                name="address" value="{{std.address}}">
+                                                name="address" value="{{record_student.address}}">
                                         </div>
 
                                         <label style="margin-left: 1%;" class="mb-3">Phone</label>
@@ -84,7 +83,7 @@
                                             class="text-muted">{{phone.0}}</b>
                                         <div class="input-group mb-3">
                                             <input class="mb-3 form-control" type="text" placeholder="Phone"
-                                                name="phone" value="{{std.phone}}">
+                                                name="phone" value="{{record_student.phone}}">
                                         </div>
 
                                         <label style="margin-left: 1%;" class="mb-3">Birthday</label>
@@ -93,7 +92,7 @@
                                         <div class="input-group mb-3">
                                             <input class="mb-3 form-control" type="date"
                                                 placeholder="Birthday (YYYY-MM-DD)" name="birthday"
-                                                value="{{std.birthday}}">
+                                                value="{{record_student.birthday}}">
                                         </div>
 
                                         <label style="margin-left: 1%;" class="mb-3">Specialized</label>
@@ -104,7 +103,7 @@
                                                 name="specialized">
                                                 <option value=""> </option>
                                                 {% for v, n in SPECIALIZED_ARR.items %}
-                                                {% if v == std.specialized %}
+                                                {% if v == record_student.specialized %}
                                                 <option value="{{v}}" selected> {{n}}</option>
                                                 {% else %}
                                                 <option value="{{v}}"> {{n}}</option>
@@ -118,7 +117,7 @@
                                             class="text-muted">{{description.0}}</b>
                                         <div class="input-group mb-3">
                                             <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
-                                                name="description">{{std.description}}</textarea>
+                                                name="description">{{record_student.description}}</textarea>
                                         </div>
                                     </div>
                                 </form>
