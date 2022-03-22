@@ -15,8 +15,7 @@ urlpatterns = [
     path("", include("apps.teacher.urls")),
     path("", include("apps.subject.urls")),
     path("", include("apps.course.urls")),
-    
-
+    path("", include("apps.score.urls")),
 
     path("", include("apps.home.urls")),  # UI Kits Html files
 ]

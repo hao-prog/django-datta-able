@@ -1,0 +1,83 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Score Detail {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+{% load home_extras %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10"> Score Detail </h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/score">Score</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">Score Detail</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Score Detail</h5>
+                            </div>
+                            <div class="card-body">
+                                <h5>Score Informations</h5>
+                                <hr>
+
+                                <div class="row">
+                                    <label style="margin-left: 1%;" class="mb-3">Student Name</label>
+                                    <div class="input-group mb-3">
+                                        <div class="mb-3 form-control"> {{record_score.student.name}} </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Course Name</label>
+                                    <div class="input-group mb-3">
+                                        <div class="mb-3 form-control"> {{record_score.course.name}} </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Score</label>
+                                    <div class="input-group mb-3">
+                                        <div class="mb-3 form-control"> {{record_score.score}} </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Description</label>
+                                    <div class="input-group mb-3">
+                                        <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
+                                            name="description"> {{record_score.description}} </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+</script>
+{% endblock javascripts %}

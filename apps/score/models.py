@@ -1,62 +1,74 @@
-# import uuid
-# from django.db import models
+import uuid
+from django.db import models
+from django.db.models import Q
+from apps.student.models import Student
+from apps.course.models import Course
+from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
 
-# from core.settings import DATE_INPUT_FORMATS
 
+class Score(models.Model):
+    class Meta:
+        db_table = "score"
 
-# class Score(models.Model):
-#     class Meta:
-#         db_table = "student"
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    score = models.IntegerField(
+        validators=[MaxValueValidator(10), MinValueValidator(0)]
+    )
+    description = models.TextField(max_length=1000)
+    deleted = models.BooleanField(default=False)
 
-#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     name = models.CharField(max_length=50)
-#     avatar = models.CharField(max_length=100)
-#     address = models.CharField(max_length=50)
-#     phone = models.CharField(max_length=11)
-#     birthday = models.DateField()
-#     description = models.TextField(max_length=1000)
-#     specialized = models.CharField(max_length=10)
-#     deleted = models.BooleanField(default=False)
+    def get_by_id(id):
+        score = Score.objects.get(pk=id, deleted=False)
+        return score
 
-#     # def __init__(self, *args, **kwargs) -> None:
-#     #     super().__init__(*args, **kwargs)
-#     #     self.specialized = SPECIALIZED_ARR[self.specialized]
+    def get_scores_by(keyword=None, student_name=None, course_name=None):
+        condition = Q(deleted=False)
+        if keyword:
+            condition &= Q(description__icontains=keyword)
+        if student_name:
+            condition &= Q(student__name__icontains=student_name)
+        if course_name:
+            condition &= Q(course__name__icontains=course_name)
 
-#     def __str__(self) -> str:
-#         return self.name
+        return Score.objects.filter(condition)
 
-#     def get_by_id(id):
-#         student = Score.objects.get(pk=id, deleted=False)
-#         student.birthday = student.birthday.strftime(DATE_INPUT_FORMATS)
-#         return student
+    def create(student_id, course_id, score, description):
+        if not student_id:
+            raise ValidationError({"student_id": ["This field cannot be blank."]})
+        if not course_id:
+            raise ValidationError({"course_id": ["This field cannot be blank."]})
+        if Score.objects.filter(student_id=student_id, course_id=course_id).exists():
+            raise ValidationError({"score": "Score is existed"})
+        score = Score(
+            student_id=student_id,
+            course_id=course_id,
+            score=score,
+            description=description,
+        )
+        score.clean_fields()
+        score.save()
 
-#     def get_students():
-#         return Score.objects.filter(deleted=False)
+    def update(self, student_id, course_id, score, description):
+        if not student_id:
+            raise ValidationError({"student_id": ["This field cannot be blank."]})
+        if not course_id:
+            raise ValidationError({"course_id": ["This field cannot be blank."]})
+        if (
+            Score.objects.filter(student_id=student_id, course_id=course_id)
+            .exclude(id=self.id)
+            .exists()
+        ):
+            raise ValidationError({"score": "Score is existed"})
+        self.student_id = student_id
+        self.course_id = course_id
+        self.score = score
+        self.description = description
+        self.clean_fields()
+        self.save()
 
-#     def create(name, avatar, address, phone, birthday, specialized, description):
-#         student = Score(
-#             name=name,
-#             avatar=avatar,
-#             address=address,
-#             phone=phone,
-#             birthday=birthday,
-#             specialized=specialized,
-#             description=description,
-#         )
-#         student.clean_fields()
-#         student.save()
-
-#     def update(self, name, avatar, address, phone, birthday, specialized, description):
-#         self.name = name
-#         self.avatar = avatar
-#         self.address = address
-#         self.phone = phone
-#         self.birthday = birthday
-#         self.specialized = specialized
-#         self.description = description
-#         self.clean_fields()
-#         self.save()
-
-#     def delete(self):
-#         self.deleted = True
-#         self.save()
+    def delete(self):
+        self.deleted = True
+        self.save()

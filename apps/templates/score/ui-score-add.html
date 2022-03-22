@@ -1,0 +1,125 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Score Add {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10"> Score Add </h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/score">Score</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">Score Add</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Score Add</h5>
+                            </div>
+                            <div class="card-body">
+                                <h5>Score Informations</h5>
+                                <hr>
+                                <form action="/score_add" method="post" id="add_form" enctype="multipart/form-data">
+                                    {% csrf_token %}
+
+                                    <div class="row">
+                                        <label style="margin-left: 1%;" class="mb-3">Student Name</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{student_id.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <select class="mb-3 form-control" type="text" name="student_id">
+                                                <option value=""> </option>
+                                                {% for student in student_records %}
+                                                    <option value="{{student.id}}"> {{student.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <label style="margin-left: 1%;" class="mb-3">Course Name</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{course_id.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <select class="mb-3 form-control" type="text" name="course_id">
+                                                <option value=""> </option>
+                                                {% for course in course_records %}
+                                                    <option value="{{course.id}}"> {{course.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <label style="margin-left: 1%;" class="mb-3">Score</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{score.0}} </b>
+                                        <div class="input-group mb-3">
+                                            <input class="mb-3 form-control" type="text" placeholder="Score"
+                                                name="score">
+                                        </div>
+
+                                        <label style="margin-left: 1%;" class="mb-3">Description</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{description.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
+                                                name="description"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary" style="margin: auto"
+                                        title="Add new score" data-toggle="tooltip" onclick="add_score()"> Add <i
+                                            class="feather icon-plus-square"></i> </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    function add_score() {
+        if (confirm("Are you sure you want to add this score?")) {
+            var form = document.getElementById('add_form');
+            form.submit();
+        } else {
+
+        }
+    }
+
+    function getFileData(myFile) {
+        var file = myFile.files[0];
+        if (file) {
+            var filename = file.name;
+            document.getElementById('img').src = URL.createObjectURL(file);
+            document.getElementById("fileNameTextBox").innerHTML = filename;
+        }
+    }
+</script>
+{% endblock javascripts %}
