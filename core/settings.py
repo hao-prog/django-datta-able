@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "apps.student",
     "apps.teacher",
     "apps.subject",
+    "apps.course",
     "django_extensions",
     "storages",
 ]

@@ -7,7 +7,9 @@ from core.settings import MEDIA_FOLDER_PATH_STUDENT
 
 
 def student(request):
-    students = Student.get_students()
+    keyword = request.GET.get("keyword")
+    birthday = request.GET.get("birthday")
+    students = Student.get_students_by(keyword, birthday)
     context = {"data": students}
     return render(request, "student/ui-students.html", context)
 
@@ -57,7 +59,9 @@ def student_add(request):
 def student_edit_ui(request):
     student_id = request.POST.get("student_id")
     record_student = Student.get_by_id(student_id)
-    return render(request, "student/ui-student-edit.html", {"record_student": record_student})
+    return render(
+        request, "student/ui-student-edit.html", {"record_student": record_student}
+    )
 
 
 def student_edit(request):
@@ -100,4 +104,6 @@ def student_detail(request):
         record_student = Student.get_by_id(id)
     except Exception as e:
         return render(request, "home/page-404.html")
-    return render(request, "student/ui-student-detail.html", {"record_student": record_student})
+    return render(
+        request, "student/ui-student-detail.html", {"record_student": record_student}
+    )

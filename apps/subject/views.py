@@ -7,7 +7,8 @@ from core.settings import MEDIA_FOLDER_PATH_SUBJECT
 
 
 def subject(request):
-    subjects = Subject.get_subjects()
+    keyword = request.GET.get("keyword")
+    subjects = Subject.get_subjects_by(keyword)
     context = {"data": subjects}
     return render(request, "subject/ui-subjects.html", context)
 

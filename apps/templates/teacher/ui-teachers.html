@@ -38,6 +38,32 @@
                                 <h5> Teacher List </h5>
                             </div>
 
+                            <div class="card-body">
+                                <form action="/teacher" method="get">
+
+                                    <input class="form-control"
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
+                                        type="text" placeholder="Name or description" name="keyword">
+
+                                    <select class="form-control"
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
+                                        type="text" name="specialized">
+                                        <option value="" disabled selected> Specialized </option>
+                                        {% for v, n in SPECIALIZED_ARR.items %}
+                                        <option value="{{v}}"> {{n}}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                    <input class="form-control"
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
+                                        type="date" placeholder="Birthday" name="birthday">
+
+                                    <button type="submit" class="btn btn-primary" title="Search teacher"
+                                        data-toggle="tooltip"> Search <i class="feather icon-search"></i> </button>
+                                </form>
+                            </div>
+                            <hr>
+
                             <div class="card-block table-border-style">
                                 <form action="/teacher_add_ui" method="post">
                                     {% csrf_token %}
@@ -60,11 +86,20 @@
                                         <tbody>
                                             {% for obj in data %}
                                             <tr>
-                                                <th scope="row" onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{ forloop.counter }}</th>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{obj.birthday}}</td>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;"> {{SPECIALIZED_ARR|get_item:obj.specialized}}</td>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;"> {{DEGREE_ARR|get_item:obj.degree}}</td>
+                                                <th scope="row" onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
+                                                </th>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{obj.birthday}}
+                                                </td>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">
+                                                    {{SPECIALIZED_ARR|get_item:obj.specialized}}</td>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">
+                                                    {{DEGREE_ARR|get_item:obj.degree}}</td>
                                                 <td>
                                                     <form action="/teacher_edit_ui" method="post">
                                                         {% csrf_token %}

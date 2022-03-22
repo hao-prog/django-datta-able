@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.db.models import Q
 from core.settings import DATE_INPUT_FORMATS
 
 
@@ -23,8 +24,17 @@ class Teacher(models.Model):
         teacher.birthday = teacher.birthday.strftime(DATE_INPUT_FORMATS)
         return teacher
 
-    def get_teachers():
-        return Teacher.objects.filter(deleted=False)
+    def get_teachers_by(keyword=None, specialized=None, birthday=None):
+        condition = Q(deleted=False)
+        if keyword:
+            keyword_condition = Q(name__icontains=keyword) | Q(description__icontains=keyword)
+            condition &= keyword_condition
+        if specialized:
+            condition &= Q(specialized=specialized)
+        if birthday:
+            condition &= Q(birthday=birthday)
+
+        return Teacher.objects.filter(condition)
 
     def create(
         name, avatar, address, phone, birthday, specialized, degree, description

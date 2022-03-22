@@ -7,7 +7,10 @@ from core.settings import MEDIA_FOLDER_PATH_TEACHER
 
 
 def teacher(request):
-    teachers = Teacher.get_teachers()
+    keyword = request.GET.get("keyword")
+    specialized = request.GET.get("specialized")
+    birthday = request.GET.get("birthday")
+    teachers = Teacher.get_teachers_by(keyword, specialized, birthday)
     context = {"data": teachers}
     return render(request, "teacher/ui-teachers.html", context)
 

@@ -1,0 +1,80 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Course Detail {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+{% load home_extras %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10"> Course Detail </h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/course">Course</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">Course Detail</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Course Detail</h5>
+                            </div>
+                            <div class="card-body">
+                                <h5>Course Informations</h5>
+                                <hr>
+
+                                <div class="row">
+                                    <label style="margin-left: 1%;" class="mb-3">Name</label>
+                                    <div class="input-group mb-3">
+                                        <div class="form-control mb-3"> {{record_course.name}} </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Subject</label>
+                                    <div class="input-group mb-3">
+                                        <div class="mb-3 form-control">
+                                            {{record_course.subject.name}}
+                                        </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Description</label>
+                                    <div class="input-group mb-3">
+                                        <textarea readonly class="form-control mb-3" id="" rows="3" placeholder="Description"
+                                            name="description">{{record_course.description}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+</script>
+{% endblock javascripts %}

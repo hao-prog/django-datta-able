@@ -1,0 +1,114 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Course Add {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10"> Course Add </h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/course">Course</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">Course Add</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Course Add</h5>
+                            </div>
+                            <div class="card-body">
+                                <h5>Course Informations</h5>
+                                <hr>
+                                <form action="/course_add" method="post" id="add_form" enctype="multipart/form-data">
+                                    {% csrf_token %}
+
+                                    <div class="row">
+                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{name.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name"
+                                                value="{{name_value}}" id="name">
+                                        </div>
+
+
+                                        <label style="margin-left: 1%;" class="mb-3">Subject</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{subject.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <select class="mb-3 form-control" type="text" name="subject_id">
+                                                <option value=""> </option>
+                                                {% for subject in subject_records %}
+                                                    <option value="{{subject.id}}"> {{subject.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <label style="margin-left: 1%;" class="mb-3">Description</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{description.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
+                                                name="description">{{description_value}}</textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary" style="margin: auto"
+                                        title="Add new course" data-toggle="tooltip" onclick="add_course()"> Add <i
+                                            class="feather icon-plus-square"></i> </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    function add_course() {
+        if (confirm("Are you sure you want to add this course?")) {
+            var form = document.getElementById('add_form');
+            form.submit();
+        } else {
+
+        }
+    }
+
+    function getFileData(myFile) {
+        var file = myFile.files[0];
+        if (file) {
+            var filename = file.name;
+            document.getElementById('img').src = URL.createObjectURL(file);
+            document.getElementById("fileNameTextBox").innerHTML = filename;
+        }
+    }
+</script>
+{% endblock javascripts %}

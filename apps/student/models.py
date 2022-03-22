@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-
+from django.db.models import Q
 from core.settings import DATE_INPUT_FORMATS
 
 
@@ -18,10 +18,6 @@ class Student(models.Model):
     specialized = models.CharField(max_length=10)
     deleted = models.BooleanField(default=False)
 
-    # def __init__(self, *args, **kwargs) -> None:
-    #     super().__init__(*args, **kwargs)
-    #     self.specialized = SPECIALIZED_ARR[self.specialized]
-
     def __str__(self) -> str:
         return self.name
 
@@ -29,9 +25,16 @@ class Student(models.Model):
         student = Student.objects.get(pk=id, deleted=False)
         student.birthday = student.birthday.strftime(DATE_INPUT_FORMATS)
         return student
+    
+    def get_students_by(keyword=None, birthday=None):
+        condition = Q(deleted=False)
+        if keyword:
+            keyword_condition = Q(name__icontains=keyword) | Q(description__icontains=keyword)
+            condition &= keyword_condition
+        if birthday:
+            condition &= Q(birthday=birthday)
 
-    def get_students():
-        return Student.objects.filter(deleted=False)
+        return Student.objects.filter(condition)
 
     def create(name, avatar, address, phone, birthday, specialized, description):
         student = Student(

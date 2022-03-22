@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Subject {% endblock %}
+{% block title %} Course {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -17,11 +17,11 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10"> Subject </h5>
+                            <h5 class="m-b-10"> Course </h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Subject</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">Course</a></li>
                         </ul>
                     </div>
                 </div>
@@ -35,26 +35,26 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5> Subject List </h5>
+                                <h5> Course List </h5>
                             </div>
 
                             <div class="card-body">
-                                <form action="/subject" method="get">
+                                <form action="/course" method="get">
 
                                     <input class="form-control"
                                         style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
                                         type="text" placeholder="Name or description" name="keyword">
 
-                                    <button type="submit" class="btn btn-primary" title="Search subject"
+                                    <button type="submit" class="btn btn-primary" title="Search course"
                                         data-toggle="tooltip"> Search <i class="feather icon-search"></i> </button>
                                 </form>
                             </div>
                             <hr>
 
                             <div class="card-block table-border-style">
-                                <form action="/subject_add_ui" method="post">
+                                <form action="/course_add_ui" method="post">
                                     {% csrf_token %}
-                                    <button type="submit" class="btn btn-primary" title="Add a new subject"
+                                    <button type="submit" class="btn btn-primary" title="Add a new course"
                                         data-toggle="tooltip"> Add <i class="feather icon-plus-square"></i> </button>
                                 </form>
                                 <div class="table-responsive">
@@ -71,27 +71,31 @@
                                         <tbody>
                                             {% for obj in data %}
                                             <tr>
-                                                <th scope="row" onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}</th>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{obj.description}}</td>
+                                                <th scope="row" onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
+                                                </th>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{obj.description}}
                                                 </td>
                                                 <td>
-                                                    <form action="/subject_edit_ui" method="post">
+                                                    <form action="/course_edit_ui" method="post">
                                                         {% csrf_token %}
                                                         <button type="submit" class="btn btn-warning"
-                                                            title="Edit this subject" data-toggle="tooltip"
-                                                            name="subject_id" value="{{obj.id}}" style="width: 100px">
+                                                            title="Edit this course" data-toggle="tooltip"
+                                                            name="course_id" value="{{obj.id}}" style="width: 100px">
                                                             Edit <i class="feather icon-edit"></i></button>
                                                     </form>
                                                 </td>
                                                 <td>
-                                                    <form action="/subject_delete" method="post"
+                                                    <form action="/course_delete" method="post"
                                                         id="delete_form_{{obj.id}}">
                                                         {% csrf_token %}
-                                                        <input type="hidden" name="subject_id" value="{{obj.id}}">
+                                                        <input type="hidden" name="course_id" value="{{obj.id}}">
                                                         <button type="button" class="btn btn-danger"
-                                                            title="Delete this subject" data-toggle="tooltip"
-                                                            style="width: 100px" onclick="delete_subject(this)"
+                                                            title="Delete this course" data-toggle="tooltip"
+                                                            style="width: 100px" onclick="delete_course(this)"
                                                             value="{{obj.id}}"> Delete <i
                                                                 class="feather icon-trash-2"></i></button>
                                                     </form>
@@ -119,8 +123,8 @@
 {% block javascripts %}
 <script>
 
-    function delete_subject(button) {
-        if (confirm("Are you sure you want to delete this subject?")) {
+    function delete_course(button) {
+        if (confirm("Are you sure you want to delete this course?")) {
             var form = document.getElementById('delete_form_' + button.value);
             form.submit();
         } else {
@@ -129,7 +133,7 @@
     }
 
     function view_detail(row, id) {
-        window.location = 'subject_detail?id=' + id;
+        window.location = 'course_detail?id=' + id;
 
     };
 

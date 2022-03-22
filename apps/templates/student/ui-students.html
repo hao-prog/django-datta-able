@@ -38,6 +38,23 @@
                                 <h5> Student List </h5>
                             </div>
 
+                            <div class="card-body">
+                                <form action="/student" method="get">
+
+                                    <input class="form-control"
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
+                                        type="text" placeholder="Name or description" name="keyword">
+
+                                    <input class="form-control"
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
+                                        type="date" placeholder="Birthday" name="birthday">
+
+                                    <button type="submit" class="btn btn-primary" title="Search student"
+                                        data-toggle="tooltip"> Search <i class="feather icon-search"></i> </button>
+                                </form>
+                            </div>
+                            <hr>
+
                             <div class="card-block table-border-style">
                                 <form action="/student_add_ui" method="post">
                                     {% csrf_token %}
@@ -59,10 +76,17 @@
                                         <tbody>
                                             {% for obj in data %}
                                             <tr>
-                                                <th scope="row" onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{ forloop.counter }}</th>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{obj.birthday}}</td>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;"> {{SPECIALIZED_ARR|get_item:obj.specialized}}
+                                                <th scope="row" onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
+                                                </th>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{obj.birthday}}
+                                                </td>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">
+                                                    {{SPECIALIZED_ARR|get_item:obj.specialized}}
                                                 </td>
                                                 <td>
                                                     <form action="/student_edit_ui" method="post">

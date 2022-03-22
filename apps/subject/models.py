@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
-
-from core.settings import DATE_INPUT_FORMATS
+from django.db.models import Q
+from django.core.exceptions import ValidationError
 
 
 class Subject(models.Model):
@@ -18,10 +18,17 @@ class Subject(models.Model):
         subject = Subject.objects.get(pk=id, deleted=False)
         return subject
 
-    def get_subjects():
-        return Subject.objects.filter(deleted=False)
+    def get_subjects_by(keyword=None):
+        condition = Q(deleted=False)
+        if keyword:
+            keyword_condition = Q(name__icontains=keyword) | Q(description__icontains=keyword)
+            condition &= keyword_condition
+
+        return Subject.objects.filter(condition)
 
     def create(name, avatar, description):
+        if Subject.objects.filter(name=name).exists():
+            raise ValidationError({'name': 'Name of subject is existed'})
         subject = Subject(
             name=name,
             avatar=avatar,
@@ -31,6 +38,8 @@ class Subject(models.Model):
         subject.save()
 
     def update(self, name, avatar, description):
+        if Subject.objects.filter(name=name).exclude(id=self.id).exists():
+            raise ValidationError({'name': 'Name of subject is existed'})
         self.name = name
         self.avatar = avatar
         self.description = description
