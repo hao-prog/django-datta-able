@@ -25,11 +25,13 @@ class Student(models.Model):
         student = Student.objects.get(pk=id, deleted=False)
         student.birthday = student.birthday.strftime(DATE_INPUT_FORMATS)
         return student
-    
+
     def get_students_by(keyword=None, birthday=None):
         condition = Q(deleted=False)
         if keyword:
-            keyword_condition = Q(name__icontains=keyword) | Q(description__icontains=keyword)
+            keyword_condition = Q(name__icontains=keyword) | Q(
+                description__icontains=keyword
+            )
             condition &= keyword_condition
         if birthday:
             condition &= Q(birthday=birthday)

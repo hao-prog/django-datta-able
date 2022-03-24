@@ -84,6 +84,132 @@
                             </div>
 
                         </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Course's Teachers</h5>
+                            </div>
+
+                            <!-- <div class="card-body">
+                                <form action="/course" method="get">
+
+                                    <input class="form-control"
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
+                                        type="text" placeholder="Name or description" name="keyword">
+
+                                    <button type="submit" class="btn btn-primary" title="Search course"
+                                        data-toggle="tooltip"> Search <i class="feather icon-search"></i> </button>
+                                </form>
+                            </div>
+                            <hr> -->
+
+                            <div class="card-block table-border-style">
+                                <form action="/course_teacher_add_ui" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="course_id" value="{{record_course.id}}">
+
+                                    <button type="submit" class="btn btn-primary" title="Add a new teacher for course"
+                                        data-toggle="tooltip"> Add <i class="feather icon-plus-square"></i> </button>
+                                </form>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Name</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for teacher in teacher_records %}
+                                            <tr>
+                                                <th scope="row" onclick="view_detail_teacher(this, '{{teacher.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
+                                                </th>
+                                                <td onclick="view_detail_teacher(this, '{{teacher.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{teacher.name}}
+                                                </td>
+
+                                                <td>
+                                                    <form action="/course_teacher_delete" method="post"
+                                                        id="delete_form_{{teacher.id}}">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="course_id"
+                                                            value="{{record_course.id}}">
+                                                        <input type="hidden" name="teacher_id" value="{{teacher.id}}">
+                                                        <button type="button" class="btn btn-danger"
+                                                            title="Delete this teacher" data-toggle="tooltip"
+                                                            style="width: 100px" onclick="delete_course_teacher(this)"
+                                                            value="{{teacher.id}}">
+                                                            Delete <i class=" feather icon-trash-2"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Course's Students</h5>
+                            </div>
+
+                            <div class="card-block table-border-style">
+                                <form action="/course_student_add_ui" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="course_id" value="{{record_course.id}}">
+
+                                    <button type="submit" class="btn btn-primary" title="Add a new student for course"
+                                        data-toggle="tooltip"> Add <i class="feather icon-plus-square"></i> </button>
+                                </form>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Name</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for student in student_records %}
+                                            <tr>
+                                                <th scope="row" onclick="view_detail_student(this, '{{student.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
+                                                </th>
+                                                <td onclick="view_detail_student(this, '{{student.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{student.name}}
+                                                </td>
+
+                                                <td>
+                                                    <form action="/course_student_delete" method="post"
+                                                        id="delete_form_{{student.id}}">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="course_id"
+                                                            value="{{record_course.id}}">
+                                                        <input type="hidden" name="student_id" value="{{student.id}}">
+                                                        <button type="button" class="btn btn-danger"
+                                                            title="Delete this student" data-toggle="tooltip"
+                                                            style="width: 100px" onclick="delete_course_student(this)"
+                                                            value="{{student.id}}"> Delete <i
+                                                                class="feather icon-trash-2"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -106,13 +232,30 @@
         }
     }
 
-    function getFileData(myFile) {
-        var file = myFile.files[0];
-        if (file) {
-            var filename = file.name;
-            document.getElementById('img').src = URL.createObjectURL(file);
-            document.getElementById("fileNameTextBox").innerHTML = filename;
+    function delete_course_teacher(button) {
+        if (confirm("Are you sure you want to delete this teacher?")) {
+            var form = document.getElementById('delete_form_' + button.value);
+            form.submit();
+        } else {
+
         }
     }
+
+    function delete_course_student(button) {
+        if (confirm("Are you sure you want to delete this student?")) {
+            var form = document.getElementById('delete_form_' + button.value);
+            form.submit();
+        } else {
+
+        }
+    }
+
+    function view_detail_teacher(row, id) {
+        window.location = 'teacher_detail?id=' + id;
+    };
+
+    function view_detail_student(row, id) {
+        window.location = 'student_detail?id=' + id;
+    };
 </script>
 {% endblock javascripts %}

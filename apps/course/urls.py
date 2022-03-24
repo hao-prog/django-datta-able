@@ -9,5 +9,34 @@ urlpatterns = [
     path("course_edit_ui", views.course_edit_ui, name="course_edit_ui"),
     path("course_edit", views.course_edit, name="course_edit"),
     path("course_detail", views.course_detail, name="course_detail"),
-    
+    path(
+        "course_teacher_add_ui",
+        views.course_teacher_add_ui,
+        name="course_teacher_add_ui",
+    ),
+    path(
+        "course_student_add_ui",
+        views.course_student_add_ui,
+        name="course_student_add_ui",
+    ),
+    path(
+        "course_teacher_add",
+        views.course_teacher_add,
+        name="course_teacher_add",
+    ),
+    path(
+        "course_student_add",
+        views.course_student_add,
+        name="course_student_add",
+    ),
+    path(
+        "course_teacher_delete",
+        views.course_teacher_delete,
+        name="course_teacher_delete",
+    ),
+    path(
+        "course_student_delete",
+        views.course_student_delete,
+        name="course_student_delete",
+    ),
 ]

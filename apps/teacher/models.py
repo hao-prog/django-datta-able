@@ -27,7 +27,9 @@ class Teacher(models.Model):
     def get_teachers_by(keyword=None, specialized=None, birthday=None):
         condition = Q(deleted=False)
         if keyword:
-            keyword_condition = Q(name__icontains=keyword) | Q(description__icontains=keyword)
+            keyword_condition = Q(name__icontains=keyword) | Q(
+                description__icontains=keyword
+            )
             condition &= keyword_condition
         if specialized:
             condition &= Q(specialized=specialized)

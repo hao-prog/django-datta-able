@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
-from apps.course.models import Course
+from apps.course.models import Course, CourseStudent, CourseTeacher
+from apps.student.models import Student
 from apps.subject.models import Subject
+from apps.teacher.models import Teacher
 
 
 def course(request):
@@ -46,7 +48,14 @@ def course_edit_ui(request):
     course_id = request.POST.get("course_id")
     record_course = Course.get_by_id(course_id)
     subject_records = Subject.get_subjects_by()
-    context = {"record_course": record_course, "subject_records": subject_records}
+    teacher_records = record_course.get_teacher_list()
+    student_records = record_course.get_student_list()
+    context = {
+        "record_course": record_course,
+        "subject_records": subject_records,
+        "teacher_records": teacher_records,
+        "student_records": student_records,
+    }
     return render(request, "course/ui-course-edit.html", context)
 
 
@@ -80,3 +89,55 @@ def course_detail(request):
     return render(
         request, "course/ui-course-detail.html", {"record_course": record_course}
     )
+
+
+def course_teacher_add_ui(request):
+    course_id = request.POST.get("course_id")
+    course_record = Course.get_by_id(course_id)
+    teacher_records = course_record.get_teachers_exclude()
+    context = {"teacher_records": teacher_records, "course_id": course_id}
+    return render(request, "course/ui-course-teacher-add.html", context)
+
+
+def course_student_add_ui(request):
+    course_id = request.POST.get("course_id")
+    course_record = Course.get_by_id(course_id)
+    student_records = course_record.get_students_exclude()
+    context = {"student_records": student_records, "course_id": course_id}
+    return render(request, "course/ui-course-student-add.html", context)
+
+
+def course_teacher_add(request):
+    course_id = request.POST.get("course_id")
+    teacher_id = request.POST.get("teacher_id")
+    try:
+        CourseTeacher.create(course_id, teacher_id)
+    except ValidationError as e:
+        return render(request, "course/ui-course-teacher-add.html", dict(e))
+    return redirect("/course")
+
+
+def course_student_add(request):
+    course_id = request.POST.get("course_id")
+    student_id = request.POST.get("student_id")
+    try:
+        CourseStudent.create(course_id, student_id)
+    except ValidationError as e:
+        return render(request, "course/ui-course-student-add.html", dict(e))
+    return redirect("/course")
+
+
+def course_teacher_delete(request):
+    course_id = request.POST.get("course_id")
+    teacher_id = request.POST.get("teacher_id")
+    course_teacher = CourseTeacher.get_by(course_id=course_id, teacher_id=teacher_id)
+    course_teacher.delete()
+    return redirect("/course")
+
+
+def course_student_delete(request):
+    course_id = request.POST.get("course_id")
+    student_id = request.POST.get("student_id")
+    course_student = CourseStudent.get_by(course_id=course_id, student_id=student_id)
+    course_student.delete()
+    return redirect("/course")

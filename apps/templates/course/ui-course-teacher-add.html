@@ -1,0 +1,90 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Course Teacher Add {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10"> Course Teacher Add </h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="/course">Course</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">Course Teacher Add</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Course Teacher Add</h5>
+                            </div>
+                            <div class="card-body">
+                                <h5>Choose Teacher</h5>
+                                <hr>
+                                <form action="/course_teacher_add" method="post" id="add_form"
+                                    enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="course_id" value="{{course_id}}">
+                                    
+                                    <div class="row">
+                                        <label style="margin-left: 1%;" class="mb-3">Teacher</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{teacher.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <select class="mb-3 form-control" type="text" name="teacher_id">
+                                                <option value=""> </option>
+                                                {% for teacher in teacher_records %}
+                                                <option value="{{teacher.id}}"> {{teacher.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary" style="margin: auto"
+                                        title="Add new teacher" data-toggle="tooltip" onclick="add_teacher()"> Add <i
+                                            class="feather icon-plus-square"></i> </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    function add_teacher() {
+        if (confirm("Are you sure you want to add this teacher?")) {
+            var form = document.getElementById('add_form');
+            form.submit();
+        } else {
+
+        }
+    }
+</script>
+{% endblock javascripts %}
