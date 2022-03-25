@@ -27,6 +27,7 @@ def student_add_ui(request):
 
 def student_add(request):
     name = request.POST.get("name")
+    code = request.POST.get("code")
     address = request.POST.get("address")
     phone = request.POST.get("phone")
     birthday = request.POST.get("birthday")
@@ -43,6 +44,7 @@ def student_add(request):
     try:
         Student.create(
             name=name,
+            code=code,
             avatar=avatar,
             address=address,
             phone=phone,
@@ -67,6 +69,7 @@ def student_edit_ui(request):
 def student_edit(request):
     student_id = request.POST.get("student_id")
     name = request.POST.get("name")
+    code = request.POST.get("code")
     address = request.POST.get("address")
     phone = request.POST.get("phone")
     birthday = request.POST.get("birthday")
@@ -85,6 +88,7 @@ def student_edit(request):
     try:
         student.update(
             name=name,
+            code=code,
             avatar=avatar,
             address=address,
             phone=phone,

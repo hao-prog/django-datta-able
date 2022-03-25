@@ -1,4 +1,3 @@
-import os
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ValidationError
 

@@ -62,7 +62,7 @@ class Course(models.Model):
         return Teacher.objects.filter(id__in=id_array)
 
     def get_teachers_exclude(self):
-        id_array = self.coursestudent_set.filter(deleted=False).values_list(
+        id_array = self.courseteacher_set.filter(deleted=False).values_list(
             "teacher_id"
         )
         result = Teacher.objects.filter(deleted=False).exclude(id__in=id_array)

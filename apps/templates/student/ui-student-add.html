@@ -41,20 +41,12 @@
                                 <form action="/student_add" method="post" id="add_form" enctype="multipart/form-data">
                                     {% csrf_token %}
 
-                                    <div class="row">
-                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{name.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name"
-                                                value="{{name_value}}" id="name">
-                                        </div>
-
+                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
                                         <label style="margin-left: 1%;" class="mb-3">Avatar</label>
                                         <b style="color: red!important; margin-left: 3%;"
                                             class="text-muted">{{avatar.0}}</b>
-                                        <div class="input-group mb-3" style="height: 310px;">
-                                            <div style="width: 100%; margin-bottom: 2%; height: 234px;">
+                                        <div class="input-group mb-3" style="height: 417px; background: none;">
+                                            <div style="width: 100%; margin-bottom: 2%; height: 341px;">
                                                 <img id="img" class="avatar"
                                                     src="/static/assets/images/tmp/student/{{avatar_value}}"
                                                     onerror="this.src='static/assets/images/user/user-2.png'; this.onerror=null;">
@@ -67,6 +59,20 @@
                                             </label>
                                             <input style="display:none" type="file" id="avatar" name="avatar"
                                                 onchange="getFileData(this);">
+                                        </div>
+
+                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{name.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name">
+                                        </div>
+
+                                        <label style="margin-left: 1%;" class="mb-3">Code</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{code.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <input class="form-control mb-3" type="text" placeholder="Code" name="code">
                                         </div>
 
                                         <label style="margin-left: 1%;" class="mb-3">Address</label>

@@ -2,9 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from apps.course.models import Course, CourseStudent, CourseTeacher
-from apps.student.models import Student
 from apps.subject.models import Subject
-from apps.teacher.models import Teacher
 
 
 def course(request):

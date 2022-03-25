@@ -42,7 +42,7 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="course_id" value="{{record_course.id}}">
 
-                                    <div class="row">
+                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
                                         <label style="margin-left: 1%;" class="mb-3">Name</label>
                                         <b style="color: red!important; margin-left: 3%;"
                                             class="text-muted">{{name.0}}</b>
@@ -109,7 +109,8 @@
                                     <input type="hidden" name="course_id" value="{{record_course.id}}">
 
                                     <button type="submit" class="btn btn-primary" title="Add a new teacher for course"
-                                        data-toggle="tooltip"> Add <i class="feather icon-plus-square"></i> </button>
+                                        data-toggle="tooltip" style="float: right"> Add <i
+                                            class="feather icon-plus-square"></i> </button>
                                 </form>
                                 <div class="table-responsive">
                                     <table class="table">
@@ -117,8 +118,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Name</th>
-                                                <th></th>
-                                                <th></th>
+                                                <th style="width: 50px;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -140,7 +140,8 @@
                                                         <input type="hidden" name="teacher_id" value="{{teacher.id}}">
                                                         <button type="button" class="btn btn-danger"
                                                             title="Delete this teacher" data-toggle="tooltip"
-                                                            style="width: 100px" onclick="delete_course_teacher(this)"
+                                                            style="padding: 0px 0px !important;"
+                                                            onclick="delete_course_teacher(this)"
                                                             value="{{teacher.id}}">
                                                             Delete <i class=" feather icon-trash-2"></i></button>
                                                     </form>
@@ -165,7 +166,8 @@
                                     <input type="hidden" name="course_id" value="{{record_course.id}}">
 
                                     <button type="submit" class="btn btn-primary" title="Add a new student for course"
-                                        data-toggle="tooltip"> Add <i class="feather icon-plus-square"></i> </button>
+                                        data-toggle="tooltip" style="float: right"> Add <i
+                                            class="feather icon-plus-square"></i> </button>
                                 </form>
                                 <div class="table-responsive">
                                     <table class="table">
@@ -173,8 +175,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Name</th>
-                                                <th></th>
-                                                <th></th>
+                                                <th style="width: 50px;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -196,7 +197,8 @@
                                                         <input type="hidden" name="student_id" value="{{student.id}}">
                                                         <button type="button" class="btn btn-danger"
                                                             title="Delete this student" data-toggle="tooltip"
-                                                            style="width: 100px" onclick="delete_course_student(this)"
+                                                            style="padding: 0px 0px !important;"
+                                                            onclick="delete_course_student(this)"
                                                             value="{{student.id}}"> Delete <i
                                                                 class="feather icon-trash-2"></i></button>
                                                     </form>

@@ -41,21 +41,14 @@
                                 <form action="/teacher_add" method="post" id="add_form" enctype="multipart/form-data">
                                     {% csrf_token %}
 
-                                    <div class="row">
-                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{name.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name"
-                                                value="{{name_value}}" id="name">
-                                        </div>
+                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
 
                                         <label style="margin-left: 1%;" class="mb-3">Avatar</label>
                                         <b style="color: red!important; margin-left: 3%;"
                                             class="text-muted">{{avatar.0}}</b>
-                                        <div class="input-group mb-3" style="height: 310px;">
+                                        <div class="input-group mb-3" style="height: 417px; background: none;">
                                             <input type="hidden" name="avatar_tmp" value="{{avatar_tmp}}">
-                                            <div style="width: 100%; margin-bottom: 2%; height: 234px;">
+                                            <div style="width: 100%; margin-bottom: 2%; height: 341px;">
                                                 <img id="img" class="avatar"
                                                     src="/static/assets/images/tmp/teacher/{{avatar_value}}"
                                                     onerror="this.src='static/assets/images/user/user-2.png'; this.onerror=null;">
@@ -68,6 +61,14 @@
                                             </label>
                                             <input style="display:none" type="file" id="avatar" name="avatar"
                                                 onchange="getFileData(this);">
+                                        </div>
+
+                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{name.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name"
+                                                value="{{name_value}}" id="name">
                                         </div>
 
                                         <label style="margin-left: 1%;" class="mb-3">Address</label>
@@ -102,7 +103,7 @@
                                             <select class="mb-3 form-control" type="text" name="specialized">
                                                 <option value=""> </option>
                                                 {% for v, n in SPECIALIZED_ARR.items %}
-                                                    <option value="{{v}}"> {{n}}</option>
+                                                <option value="{{v}}"> {{n}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -114,7 +115,7 @@
                                             <select class="mb-3 form-control" type="text" name="degree">
                                                 <option value=""> </option>
                                                 {% for v, n in DEGREE_ARR.items %}
-                                                    <option value="{{v}}"> {{n}}</option>
+                                                <option value="{{v}}"> {{n}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>

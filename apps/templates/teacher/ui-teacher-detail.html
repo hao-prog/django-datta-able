@@ -41,19 +41,20 @@
                                 <h5>Teacher Informations</h5>
                                 <hr>
 
-                                <div class="row">
-                                    <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                    <div class="input-group mb-3">
-                                        <div class="form-control mb-3"> {{record_teacher.name}} </div>
-                                    </div>
+                                <div class="row" style="margin-left: 35%; margin-right: 35%;">
 
                                     <label style="margin-left: 1%;" class="mb-3">Avatar</label>
-                                    <div class="input-group mb-3">
+                                    <div class="input-group mb-3" style="background: none;">
                                         <input type="hidden" name="avatar_tmp" value="{{avatar_tmp}}">
-                                        <div style="width: 100%; margin-bottom: 2%; height: 234px;">
+                                        <div style="width: 100%; margin-bottom: 2%; height: 341px;">
                                             <img id="img" class="avatar"
                                                 src="/static/assets/images/teacher/{{record_teacher.avatar}}">
                                         </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Name</label>
+                                    <div class="input-group mb-3">
+                                        <div class="form-control mb-3"> {{record_teacher.name}} </div>
                                     </div>
 
                                     <label style="margin-left: 1%;" class="mb-3">Address</label>
@@ -87,7 +88,8 @@
 
                                     <label style="margin-left: 1%;" class="mb-3">Description</label>
                                     <div class="input-group mb-3">
-                                        <textarea readonly class="form-control mb-3" id="" rows="3" placeholder="Description"
+                                        <textarea readonly class="form-control mb-3" id="" rows="3"
+                                            placeholder="Description"
                                             name="description">{{record_teacher.description}}</textarea>
                                     </div>
                                 </div>

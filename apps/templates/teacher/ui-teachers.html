@@ -68,7 +68,8 @@
                                 <form action="/teacher_add_ui" method="post">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-primary" title="Add a new teacher"
-                                        data-toggle="tooltip"> Add <i class="feather icon-plus-square"></i> </button>
+                                        data-toggle="tooltip" style="float: right"> Add <i
+                                            class="feather icon-plus-square"></i> </button>
                                 </form>
                                 <div class="table-responsive">
                                     <table class="table">
@@ -79,8 +80,8 @@
                                                 <th>Birthday</th>
                                                 <th>Specialized</th>
                                                 <th>Degree</th>
-                                                <th></th>
-                                                <th></th>
+                                                <th style="width: 50px;"></th>
+                                                <th style="width: 50px;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -105,7 +106,8 @@
                                                         {% csrf_token %}
                                                         <button type="submit" class="btn btn-warning"
                                                             title="Edit this teacher" data-toggle="tooltip"
-                                                            name="teacher_id" value="{{obj.id}}" style="width: 100px">
+                                                            name="teacher_id" value="{{obj.id}}"
+                                                            style="padding: 0px 0px !important;">
                                                             Edit <i class="feather icon-edit"></i></button>
                                                     </form>
                                                 </td>
@@ -116,8 +118,8 @@
                                                         <input type="hidden" name="teacher_id" value="{{obj.id}}">
                                                         <button type="button" class="btn btn-danger"
                                                             title="Delete this teacher" data-toggle="tooltip"
-                                                            style="width: 100px" onclick="delete_teacher(this)"
-                                                            value="{{obj.id}}"> Delete <i
+                                                            style="padding: 0px 0px !important;"
+                                                            onclick="delete_teacher(this)" value="{{obj.id}}"> Delete <i
                                                                 class="feather icon-trash-2"></i></button>
                                                     </form>
                                                 </td>

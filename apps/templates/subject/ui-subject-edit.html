@@ -42,20 +42,13 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="subject_id" value="{{record_subject.id}}">
 
-                                    <div class="row">
-                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{name.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name"
-                                                value="{{record_subject.name}}" id="name">
-                                        </div>
+                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
 
                                         <label style="margin-left: 1%;" class="mb-3">Avatar</label>
                                         <b style="color: red!important; margin-left: 3%;"
                                             class="text-muted">{{avatar.0}}</b>
-                                        <div class="input-group mb-3" style="height: 310px;">
-                                            <div style="width: 100%; margin-bottom: 2%; height: 234px;">
+                                        <div class="input-group mb-3" style="height: 417px; background: none;">
+                                            <div style="width: 100%; margin-bottom: 2%; height: 341px;">
                                                 <img id="img" class="avatar"
                                                     src="/static/assets/images/subject/{{record_subject.avatar}}"
                                                     onerror="this.src='static/assets/images/user/user-2.png'; this.onerror=null;">
@@ -68,6 +61,15 @@
                                             </label>
                                             <input style="display:none" type="file" id="avatar" name="avatar"
                                                 onchange="getFileData(this);">
+                                        </div>
+
+
+                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
+                                        <b style="color: red!important; margin-left: 3%;"
+                                            class="text-muted">{{name.0}}</b>
+                                        <div class="input-group mb-3">
+                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name"
+                                                value="{{record_subject.name}}" id="name">
                                         </div>
 
                                         <label style="margin-left: 1%;" class="mb-3">Description</label>

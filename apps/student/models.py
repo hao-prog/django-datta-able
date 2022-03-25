@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.db.models import Q
 from core.settings import DATE_INPUT_FORMATS
+from django.core.exceptions import ValidationError
 
 
 class Student(models.Model):
@@ -10,6 +11,7 @@ class Student(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
+    code = models.CharField(max_length=10, default="1800")
     avatar = models.CharField(max_length=100)
     address = models.CharField(max_length=50)
     phone = models.CharField(max_length=11)
@@ -38,9 +40,12 @@ class Student(models.Model):
 
         return Student.objects.filter(condition)
 
-    def create(name, avatar, address, phone, birthday, specialized, description):
+    def create(name, code, avatar, address, phone, birthday, specialized, description):
+        if Student.objects.filter(code=code).exists():
+            raise ValidationError({"code": "Student code is existed"})
         student = Student(
             name=name,
+            code=code,
             avatar=avatar,
             address=address,
             phone=phone,
@@ -51,8 +56,13 @@ class Student(models.Model):
         student.clean_fields()
         student.save()
 
-    def update(self, name, avatar, address, phone, birthday, specialized, description):
+    def update(
+        self, name, code, avatar, address, phone, birthday, specialized, description
+    ):
+        if Student.objects.filter(code=code).exists():
+            raise ValidationError({"code": "Student code is existed"})
         self.name = name
+        self.code = code
         self.avatar = avatar
         self.address = address
         self.phone = phone

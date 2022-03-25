@@ -41,18 +41,19 @@
                                 <h5>Subject Informations</h5>
                                 <hr>
 
-                                <div class="row">
-                                    <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                    <div class="input-group mb-3">
-                                        <div class="form-control mb-3"> {{record_subject.name}} </div>
-                                    </div>
+                                <div class="row" style="margin-left: 35%; margin-right: 35%;">
 
                                     <label style="margin-left: 1%;" class="mb-3">Avatar</label>
-                                    <div class="input-group mb-3">
-                                        <div style="width: 100%; margin-bottom: 2%; height: 234px;">
+                                    <div class="input-group mb-3" style="background: none;">
+                                        <div style="width: 100%; margin-bottom: 2%; height: 341px;">
                                             <img id="img" class="avatar"
                                                 src="/static/assets/images/subject/{{record_subject.avatar}}">
                                         </div>
+                                    </div>
+
+                                    <label style="margin-left: 1%;" class="mb-3">Name</label>
+                                    <div class="input-group mb-3">
+                                        <div class="form-control mb-3"> {{record_subject.name}} </div>
                                     </div>
 
                                     <label style="margin-left: 1%;" class="mb-3">Description</label>

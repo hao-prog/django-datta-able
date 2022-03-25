@@ -55,7 +55,8 @@
                                 <form action="/subject_add_ui" method="post">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-primary" title="Add a new subject"
-                                        data-toggle="tooltip"> Add <i class="feather icon-plus-square"></i> </button>
+                                        data-toggle="tooltip" style="float: right"> Add <i
+                                            class="feather icon-plus-square"></i> </button>
                                 </form>
                                 <div class="table-responsive">
                                     <table class="table">
@@ -64,23 +65,29 @@
                                                 <th>No</th>
                                                 <th>Name</th>
                                                 <th>Description</th>
-                                                <th></th>
-                                                <th></th>
+                                                <th style="width: 50px;"></th>
+                                                <th style="width: 50px;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for obj in data %}
                                             <tr>
-                                                <th scope="row" onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}</th>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
-                                                <td onclick="view_detail(this, '{{obj.id}}')" style="vertical-align: middle; cursor: pointer;">{{obj.description}}</td>
+                                                <th scope="row" onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
+                                                </th>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{obj.description}}
+                                                </td>
                                                 </td>
                                                 <td>
                                                     <form action="/subject_edit_ui" method="post">
                                                         {% csrf_token %}
                                                         <button type="submit" class="btn btn-warning"
                                                             title="Edit this subject" data-toggle="tooltip"
-                                                            name="subject_id" value="{{obj.id}}" style="width: 100px">
+                                                            name="subject_id" value="{{obj.id}}"
+                                                            style="padding: 0px 0px !important;">
                                                             Edit <i class="feather icon-edit"></i></button>
                                                     </form>
                                                 </td>
@@ -91,8 +98,8 @@
                                                         <input type="hidden" name="subject_id" value="{{obj.id}}">
                                                         <button type="button" class="btn btn-danger"
                                                             title="Delete this subject" data-toggle="tooltip"
-                                                            style="width: 100px" onclick="delete_subject(this)"
-                                                            value="{{obj.id}}"> Delete <i
+                                                            style="padding: 0px 0px !important;"
+                                                            onclick="delete_subject(this)" value="{{obj.id}}"> Delete <i
                                                                 class="feather icon-trash-2"></i></button>
                                                     </form>
                                                 </td>
