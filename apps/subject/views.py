@@ -1,7 +1,6 @@
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
-from apps.common_functions import upload_file
+from apps.common_functions import login_required, upload_file
 from apps.subject.models import Subject
 from core.settings import MEDIA_FOLDER_PATH_SUBJECT
 

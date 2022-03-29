@@ -1,8 +1,7 @@
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
 from apps.teacher.models import Teacher
-from apps.common_functions import upload_file
+from apps.common_functions import login_required, upload_file
 from core.settings import MEDIA_FOLDER_PATH_TEACHER
 
 @login_required()

@@ -1,6 +1,6 @@
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
+from apps.common_functions import login_required
 from apps.course.models import Course, CourseStudent, CourseTeacher
 from apps.subject.models import Subject
 
