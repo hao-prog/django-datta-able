@@ -5,6 +5,7 @@ from apps.course.models import Course, CourseStudent, CourseTeacher
 from apps.subject.models import Subject
 
 
+@login_required()
 def course(request):
     keyword = request.GET.get("keyword")
     courses = Course.get_courses_by(keyword)
@@ -12,6 +13,7 @@ def course(request):
     return render(request, "course/ui-courses.html", context)
 
 
+@login_required()
 def course_delete(request):
     id = request.POST.get("course_id")
     record_course = Course.get_by_id(id)
@@ -19,12 +21,14 @@ def course_delete(request):
     return redirect("/course")
 
 
+@login_required()
 def course_add_ui(request):
     subject_records = Subject.get_subjects_by()
     context = {"subject_records": subject_records}
     return render(request, "course/ui-course-add.html", context)
 
 
+@login_required()
 def course_add(request):
     name = request.POST.get("name")
     subject_id = request.POST.get("subject_id")
@@ -42,6 +46,7 @@ def course_add(request):
     return redirect("/course")
 
 
+@login_required()
 def course_edit_ui(request):
     course_id = request.POST.get("course_id")
     record_course = Course.get_by_id(course_id)
@@ -57,6 +62,7 @@ def course_edit_ui(request):
     return render(request, "course/ui-course-edit.html", context)
 
 
+@login_required()
 def course_edit(request):
     course_id = request.POST.get("course_id")
     name = request.POST.get("name")
@@ -78,6 +84,7 @@ def course_edit(request):
     return redirect("/course")
 
 
+@login_required()
 def course_detail(request):
     id = request.GET.get("id")
     try:
@@ -89,6 +96,7 @@ def course_detail(request):
     )
 
 
+@login_required()
 def course_teacher_add_ui(request):
     course_id = request.POST.get("course_id")
     course_record = Course.get_by_id(course_id)
@@ -97,6 +105,7 @@ def course_teacher_add_ui(request):
     return render(request, "course/ui-course-teacher-add.html", context)
 
 
+@login_required()
 def course_student_add_ui(request):
     course_id = request.POST.get("course_id")
     course_record = Course.get_by_id(course_id)
@@ -105,6 +114,7 @@ def course_student_add_ui(request):
     return render(request, "course/ui-course-student-add.html", context)
 
 
+@login_required()
 def course_teacher_add(request):
     course_id = request.POST.get("course_id")
     teacher_id = request.POST.get("teacher_id")
@@ -115,6 +125,7 @@ def course_teacher_add(request):
     return redirect("/course")
 
 
+@login_required()
 def course_student_add(request):
     course_id = request.POST.get("course_id")
     student_id = request.POST.get("student_id")
@@ -125,6 +136,7 @@ def course_student_add(request):
     return redirect("/course")
 
 
+@login_required()
 def course_teacher_delete(request):
     course_id = request.POST.get("course_id")
     teacher_id = request.POST.get("teacher_id")
@@ -133,6 +145,7 @@ def course_teacher_delete(request):
     return redirect("/course")
 
 
+@login_required()
 def course_student_delete(request):
     course_id = request.POST.get("course_id")
     student_id = request.POST.get("student_id")

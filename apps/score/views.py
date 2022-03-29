@@ -7,6 +7,7 @@ from apps.student.models import Student
 from apps.subject.models import Subject
 
 
+@login_required()
 def score(request):
     keyword = request.GET.get("keyword")
     student_name = request.GET.get("student_name")
@@ -16,6 +17,7 @@ def score(request):
     return render(request, "score/ui-scores.html", context)
 
 
+@login_required()
 def score_delete(request):
     id = request.POST.get("score_id")
     record_score = Score.get_by_id(id)
@@ -23,6 +25,7 @@ def score_delete(request):
     return redirect("/score")
 
 
+@login_required()
 def score_add_ui(request):
     student_records = Student.get_students_by()
     course_records = Course.get_courses_by()
@@ -33,6 +36,7 @@ def score_add_ui(request):
     return render(request, "score/ui-score-add.html", context)
 
 
+@login_required()
 def score_add(request):
     student_id = request.POST.get("student_id")
     course_id = request.POST.get("course_id")
@@ -51,6 +55,7 @@ def score_add(request):
     return redirect("/score")
 
 
+@login_required()
 def score_edit_ui(request):
     score_id = request.POST.get("score_id")
     student_records = Student.get_students_by()
@@ -64,13 +69,14 @@ def score_edit_ui(request):
     return render(request, "score/ui-score-edit.html", context)
 
 
+@login_required()
 def score_edit(request):
     score_id = request.POST.get("score_id")
     student_id = request.POST.get("student_id")
     course_id = request.POST.get("course_id")
     score = request.POST.get("score")
     description = request.POST.get("description")
-    
+
     score_record = Score.get_by_id(score_id)
 
     try:
@@ -86,6 +92,7 @@ def score_edit(request):
     return redirect("/score")
 
 
+@login_required()
 def score_detail(request):
     id = request.GET.get("id")
     try:

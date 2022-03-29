@@ -6,6 +6,7 @@ from apps.subject.models import Subject
 from core.settings import MEDIA_FOLDER_PATH_SUBJECT
 
 
+@login_required()
 def subject(request):
     keyword = request.GET.get("keyword")
     subjects = Subject.get_subjects_by(keyword)
@@ -13,6 +14,7 @@ def subject(request):
     return render(request, "subject/ui-subjects.html", context)
 
 
+@login_required()
 def subject_delete(request):
     id = request.POST.get("subject_id")
     record_subject = Subject.get_by_id(id)
@@ -20,10 +22,12 @@ def subject_delete(request):
     return redirect("/subject")
 
 
+@login_required()
 def subject_add_ui(request):
     return render(request, "subject/ui-subject-add.html")
 
 
+@login_required()
 def subject_add(request):
     name = request.POST.get("name")
     description = request.POST.get("description")
@@ -47,12 +51,16 @@ def subject_add(request):
     return redirect("/subject")
 
 
+@login_required()
 def subject_edit_ui(request):
     subject_id = request.POST.get("subject_id")
     record_subject = Subject.get_by_id(subject_id)
-    return render(request, "subject/ui-subject-edit.html", {"record_subject": record_subject})
+    return render(
+        request, "subject/ui-subject-edit.html", {"record_subject": record_subject}
+    )
 
 
+@login_required()
 def subject_edit(request):
     subject_id = request.POST.get("subject_id")
     name = request.POST.get("name")
@@ -79,10 +87,13 @@ def subject_edit(request):
     return redirect("/subject")
 
 
+@login_required()
 def subject_detail(request):
     id = request.GET.get("id")
     try:
         record_subject = Subject.get_by_id(id)
     except Exception as e:
         return render(request, "home/page-404.html")
-    return render(request, "subject/ui-subject-detail.html", {"record_subject": record_subject})
+    return render(
+        request, "subject/ui-subject-detail.html", {"record_subject": record_subject}
+    )

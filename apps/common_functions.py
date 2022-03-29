@@ -53,18 +53,23 @@ def login(request, user):
     request.session[TYPE_SESSION_KEY] = user.is_admin
     if hasattr(request, "user"):
         request.user = user
-    
+
     rotate_token(request)
 
 
-def login_required(login_url):
+def login_required():
     def inner(func):
         def wrapper(*args, **kwargs):
             request = args[0]
             if not SESSION_KEY in request.session:
-                return redirect(login_url)
+                return redirect("/login/")
             return func(*args, **kwargs)
 
         return wrapper
 
     return inner
+
+
+def logout(request):
+    request.session.flush()
+    return redirect("/login/")

@@ -3,7 +3,6 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from multiprocessing import context
 from django import template
 
 # from django.contrib.auth.decorators import login_required
@@ -15,7 +14,7 @@ from django.urls import reverse
 from apps.common_functions import login_required
 
 
-@login_required(login_url="/login/")
+@login_required()
 def index(request):
     context = {"segment": "index"}
     
@@ -23,7 +22,7 @@ def index(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required()
 def pages(request):
     context = {}
     # All resource paths end in .html.
@@ -49,7 +48,7 @@ def pages(request):
         return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required()
 def table(request):
     context = {
         "data": [
@@ -64,7 +63,7 @@ def table(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required()
 def form(request):
     context = {"email": "abc@abc.com"}
 
@@ -72,7 +71,7 @@ def form(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required()
 def button(request):
     context = {}
 
@@ -80,7 +79,7 @@ def button(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required()
 def badge(request):
     context = {}
 
@@ -88,7 +87,7 @@ def badge(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required()
 def breadcrumb(request):
     context = {}
 
@@ -96,7 +95,7 @@ def breadcrumb(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required()
 def collapse(request):
     context = {}
 
@@ -104,7 +103,7 @@ def collapse(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required()
 def tab(request):
     context = {}
 
@@ -112,7 +111,7 @@ def tab(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required()
 def typography(request):
     context = {}
 
@@ -120,7 +119,7 @@ def typography(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required()
 def icon(request):
     context = {}
 

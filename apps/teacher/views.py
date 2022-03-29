@@ -5,7 +5,7 @@ from apps.teacher.models import Teacher
 from apps.common_functions import upload_file
 from core.settings import MEDIA_FOLDER_PATH_TEACHER
 
-
+@login_required()
 def teacher(request):
     keyword = request.GET.get("keyword")
     specialized = request.GET.get("specialized")
@@ -14,11 +14,11 @@ def teacher(request):
     context = {"data": teachers}
     return render(request, "teacher/ui-teachers.html", context)
 
-
+@login_required()
 def teacher_add_ui(request):
     return render(request, "teacher/ui-teacher-add.html")
 
-
+@login_required()
 def teacher_add(request):
     name = request.POST.get("name")
     address = request.POST.get("address")
@@ -51,7 +51,7 @@ def teacher_add(request):
 
     return redirect("/teacher")
 
-
+@login_required()
 def teacher_edit_ui(request):
     teacher_id = request.POST.get("teacher_id")
     record_teacher = Teacher.get_by_id(teacher_id)
@@ -59,7 +59,7 @@ def teacher_edit_ui(request):
         request, "teacher/ui-teacher-edit.html", {"record_teacher": record_teacher}
     )
 
-
+@login_required()
 def teacher_edit(request):
     teacher_id = request.POST.get("teacher_id")
     name = request.POST.get("name")
@@ -95,7 +95,7 @@ def teacher_edit(request):
 
     return redirect("/teacher")
 
-
+@login_required()
 def teacher_detail(request):
     id = request.GET.get("id")
     try:
@@ -106,7 +106,7 @@ def teacher_detail(request):
         request, "teacher/ui-teacher-detail.html", {"record_teacher": record_teacher}
     )
 
-
+@login_required()
 def teacher_delete(request):
     id = request.POST.get("teacher_id")
     record_teacher = Teacher.get_by_id(id)
