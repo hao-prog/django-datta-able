@@ -33,7 +33,7 @@ def login_view(request):
                 login(request, user)
                 return redirect("/student")
             else:
-                msg = "Invalid credentials"
+                msg = "Wrong user or password"
         else:
             msg = "Error validating the form"
 
