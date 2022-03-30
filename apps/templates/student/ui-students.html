@@ -40,17 +40,17 @@
 
                             <div class="card-body">
                                 <form action="/student" method="get">
+                                    <button style="float: right;" type="submit" class="btn btn-primary"
+                                        title="Search student" data-toggle="tooltip"> Search <i
+                                            class="feather icon-search"></i> </button>
 
                                     <input class="form-control"
-                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
-                                        type="text" placeholder="Name or description" name="keyword">
-
-                                    <input class="form-control"
-                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%; float: right;"
                                         type="date" placeholder="Birthday" name="birthday">
 
-                                    <button type="submit" class="btn btn-primary" title="Search student"
-                                        data-toggle="tooltip"> Search <i class="feather icon-search"></i> </button>
+                                    <input class="form-control"
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%; float: right;"
+                                        type="text" placeholder="Name or description" name="keyword">
                                 </form>
                             </div>
                             <hr>
@@ -67,8 +67,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Name</th>
                                                 <th>Code</th>
+                                                <th>Name</th>
                                                 <th>Birthday</th>
                                                 <th>Specialized</th>
                                                 <th style="width: 50px;"></th>
@@ -82,9 +82,9 @@
                                                     style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
                                                 </th>
                                                 <td onclick="view_detail(this, '{{obj.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
-                                                <td onclick="view_detail(this, '{{obj.id}}')"
                                                     style="vertical-align: middle; cursor: pointer;">{{obj.code}}</td>
+                                                <td onclick="view_detail(this, '{{obj.id}}')"
+                                                    style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
                                                 <td onclick="view_detail(this, '{{obj.id}}')"
                                                     style="vertical-align: middle; cursor: pointer;">{{obj.birthday}}
                                                 </td>

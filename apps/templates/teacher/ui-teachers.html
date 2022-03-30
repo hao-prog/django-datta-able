@@ -40,13 +40,15 @@
 
                             <div class="card-body">
                                 <form action="/teacher" method="get">
-
+                                    <button style="float: right;" type="submit" class="btn btn-primary"
+                                        title="Search teacher" data-toggle="tooltip"> Search <i
+                                            class="feather icon-search"></i> </button>
                                     <input class="form-control"
-                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
-                                        type="text" placeholder="Name or description" name="keyword">
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%; float: right;"
+                                        type="date" placeholder="Birthday" name="birthday">
 
                                     <select class="form-control"
-                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%; float: right;"
                                         type="text" name="specialized">
                                         <option value="" disabled selected> Specialized </option>
                                         {% for v, n in SPECIALIZED_ARR.items %}
@@ -55,11 +57,9 @@
                                     </select>
 
                                     <input class="form-control"
-                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%;"
-                                        type="date" placeholder="Birthday" name="birthday">
+                                        style="border: 1px solid #ced4da; display: initial; width: auto; margin-right: 1%; float: right;"
+                                        type="text" placeholder="Name or description" name="keyword">
 
-                                    <button type="submit" class="btn btn-primary" title="Search teacher"
-                                        data-toggle="tooltip"> Search <i class="feather icon-search"></i> </button>
                                 </form>
                             </div>
                             <hr>
