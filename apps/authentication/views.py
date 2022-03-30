@@ -31,7 +31,7 @@ def login_view(request):
             user = Account.get_by(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("/")
+                return redirect("/student")
             else:
                 msg = "Invalid credentials"
         else:
@@ -42,17 +42,14 @@ def login_view(request):
 
 def register_user(request):
     msg = None
-    teacher_records = Teacher.get_teachers_by()
-    student_records = Student.get_students_by()
 
     if request.method == "POST":
         username = request.POST.get("username")
-        teacher_id = request.POST.get("teacher_id")
-        student_id = request.POST.get("student_id")
-        raw_password = request.POST.get("password")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
 
         try:
-            Account.create(username=username, teacher_id=teacher_id, student_id=student_id, password=raw_password)
+            Account.create(username=username, password1=password1, password2=password2)
         except ValidationError as e:
             return render(request, "accounts/register.html", dict(e))
 
@@ -61,9 +58,5 @@ def register_user(request):
     return render(
         request,
         "accounts/register.html",
-        {
-            "msg": msg,
-            "teacher_records": teacher_records,
-            "student_records": student_records,
-        },
+        {"msg": msg},
     )

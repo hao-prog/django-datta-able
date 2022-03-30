@@ -34,37 +34,23 @@
 
                     {% csrf_token %}
 
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-4">
                         <input type="text" name="username" placeholder="Username" class="form-control" autofocus
                             required>
                     </div>
                     <span class="text-error">{{ username.0 }}</span>
 
                     <div class="input-group mb-4">
-                        <select name="teacher_id" class="form-control">
-                            <option value="">Choose Teacher</option>
-                            {% for teacher in teacher_records %}
-                            <option value={{teacher.id}}>{{teacher.name}}</option>
-                            {% endfor %}
-                        </select>
+                        <input type="password" name="password1" placeholder="Password" class="form-control"
+                            id="id_password1">
                     </div>
-                    <span class="text-error">{{ teacher.0 }}</span>
-
-                    <div class="input-group mb-3">
-                        <select name="student_id" class="form-control">
-                            <option value="">Choose Student</option>
-                            {% for student in student_records %}
-                            <option value={{student.id}}>{{student.name}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <span class="text-error">{{ student.0 }}</span>
+                    <span class="text-error">{{ password1.0 }}</span>
 
                     <div class="input-group mb-4">
-                        <input type="password" name="password" placeholder="Password" class="form-control"
-                            id="id_password">
+                        <input type="password" name="password2" placeholder="Password check" class="form-control"
+                            id="id_password2">
                     </div>
-                    <span class="text-error">{{ password.0 }}</span>
+                    <span class="text-error">{{ password2.0 }}</span>
 
                     <div class="form-group text-left">
                         <div class="checkbox checkbox-fill d-inline">

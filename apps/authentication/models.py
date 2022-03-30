@@ -19,12 +19,6 @@ class Account(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=128)
-    student = models.OneToOneField(
-        Student, on_delete=models.CASCADE, default=None, blank=True, null=True
-    )
-    teacher = models.OneToOneField(
-        Teacher, on_delete=models.CASCADE, default=None, blank=True, null=True
-    )
     is_admin = models.BooleanField(default=False)
     deleted = models.BooleanField(default=False)
 
@@ -38,20 +32,18 @@ class Account(models.Model):
             account = None
         return account
 
-    def create(username, password, student_id=None, teacher_id=None, is_admin=False):
+    def create(username, password1, password2, is_admin=True):
         if Account.objects.filter(username=username).exists():
             raise ValidationError({"username": "Username is existed"})
-        if password is None or password == "":
-            raise ValidationError({"password": "Password cannot be blank"})
-        if teacher_id:
-            is_admin = True
+        if password1 is None or password1 == "":
+            raise ValidationError({"password1": "Password cannot be blank"})
+        if password1 != password2:
+            raise ValidationError({"password2": "Password does not match"})
         account = Account(
             username=username,
             password=make_password(
-                password=password, salt="salt", hasher="pbkdf2_sha256"
+                password=password1, salt="salt", hasher="pbkdf2_sha256"
             ),
-            student_id=student_id,
-            teacher_id=teacher_id,
             is_admin=is_admin,
         )
         account.clean_fields()
