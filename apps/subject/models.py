@@ -10,8 +10,8 @@ class Subject(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
-    avatar = models.CharField(max_length=100)
-    description = models.TextField(max_length=1000)
+    avatar = models.CharField(max_length=100, blank=True, null=True)
+    description = models.TextField(max_length=1000, blank=True, null=True)
     deleted = models.BooleanField(default=False)
 
     def get_by_id(id):

@@ -51,7 +51,8 @@
                                             <input type="hidden" name="avatar_tmp" value="{{avatar_tmp}}">
                                             <div style="width: 100%; margin-bottom: 2%; height: 341px;">
                                                 <img id="img" class="avatar"
-                                                    src="/static/assets/images/teacher/{{record_teacher.avatar}}">
+                                                    src="/static/assets/images/teacher/{{record_teacher.avatar}}"
+                                                    onerror="this.src='static/assets/images/user/avatar-2.jpg'; this.onerror=null;">
                                             </div>
                                             <div class='input_box' id='fileNameTextBox'>
                                                 {{record_teacher.avatar}}

@@ -12,11 +12,11 @@ class Student(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
     code = models.CharField(max_length=10, default="1800")
-    avatar = models.CharField(max_length=100)
+    avatar = models.CharField(max_length=100, blank=True, null=True)
     address = models.CharField(max_length=50)
     phone = models.CharField(max_length=11)
     birthday = models.DateField()
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=1000, blank=True, null=True)
     specialized = models.CharField(max_length=10)
     deleted = models.BooleanField(default=False)
 
@@ -41,7 +41,7 @@ class Student(models.Model):
         return Student.objects.filter(condition)
 
     def create(name, code, avatar, address, phone, birthday, specialized, description):
-        if Student.objects.filter(code=code).exists():
+        if Student.objects.filter(code=code, deleted=False).exists():
             raise ValidationError({"code": "Student code is existed"})
         student = Student(
             name=name,
@@ -59,7 +59,7 @@ class Student(models.Model):
     def update(
         self, name, code, avatar, address, phone, birthday, specialized, description
     ):
-        if Student.objects.filter(code=code).exists():
+        if Student.objects.filter(code=code).exclude(id=self.id).exists():
             raise ValidationError({"code": "Student code is existed"})
         self.name = name
         self.code = code

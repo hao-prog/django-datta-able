@@ -47,11 +47,12 @@
                                     <div class="input-group mb-3" style="background: none;">
                                         <div style="width: 100%; margin-bottom: 2%; height: 341px;">
                                             <img id="img" class="avatar"
-                                                src="/static/assets/images/student/{{record_student.avatar}}">
+                                                src="/static/assets/images/student/{{record_student.avatar}}"
+                                                onerror="this.src='static/assets/images/user/avatar-2.jpg'; this.onerror=null;">
                                         </div>
                                     </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Name</label>
+                                    <label style=" margin-left: 1%;" class="mb-3">Name</label>
                                     <div class="input-group mb-3">
                                         <div class="form-control mb-3"> {{record_student.name}} </div>
                                     </div>

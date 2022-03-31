@@ -17,7 +17,7 @@ class Score(models.Model):
     score = models.IntegerField(
         validators=[MaxValueValidator(10), MinValueValidator(0)]
     )
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=1000, blank=True, null=True)
     deleted = models.BooleanField(default=False)
 
     def get_by_id(id):

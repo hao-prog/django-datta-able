@@ -10,11 +10,11 @@ class Teacher(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=50)
-    avatar = models.CharField(max_length=100)
+    avatar = models.CharField(max_length=100, blank=True, null=True)
     address = models.CharField(max_length=50)
     phone = models.CharField(max_length=11)
     birthday = models.DateField()
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=1000, blank=True, null=True)
     specialized = models.CharField(max_length=10)
     degree = models.CharField(max_length=10)
     deleted = models.BooleanField(default=False)
