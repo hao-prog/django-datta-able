@@ -31,16 +31,17 @@ class Course(models.Model):
 
         return Course.objects.filter(condition)
 
-    def create(name, subject, description):
+    def create(name, subject_id, description):
         if Course.objects.filter(name=name).exists():
             raise ValidationError({"name": "Name of course is existed"})
         course = Course(
             name=name,
-            subject=subject,
+            subject_id=subject_id,
             description=description,
         )
         course.clean_fields()
         course.save()
+        return course
 
     def update(self, name, subject, description):
         if Course.objects.filter(name=name).exclude(id=self.id).exists():

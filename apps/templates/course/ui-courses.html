@@ -53,8 +53,7 @@
                             <hr>
 
                             <div class="card-block table-border-style">
-                                <form action="/course_add_ui" method="post">
-                                    {% csrf_token %}
+                                <form action="/course_add_ui" method="get">
                                     <button type="submit" class="btn btn-primary" title="Add a new course"
                                         data-toggle="tooltip" style="float: right"> Add <i
                                             class="feather icon-plus-square"></i> </button>

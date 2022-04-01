@@ -28,7 +28,7 @@ class Student(models.Model):
         student.birthday = student.birthday.strftime(DATE_INPUT_FORMATS)
         return student
 
-    def get_students_by(keyword=None, birthday=None):
+    def get_students_by(keyword=None, birthday=None, code=None):
         condition = Q(deleted=False)
         if keyword:
             keyword_condition = Q(name__icontains=keyword) | Q(
@@ -37,7 +37,8 @@ class Student(models.Model):
             condition &= keyword_condition
         if birthday:
             condition &= Q(birthday=birthday)
-
+        if code:
+            condition &= Q(code__icontains=code)
         return Student.objects.filter(condition)
 
     def create(name, code, avatar, address, phone, birthday, specialized, description):

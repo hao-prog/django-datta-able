@@ -9,7 +9,8 @@ from core.settings import MEDIA_FOLDER_PATH_STUDENT
 def student(request):
     keyword = request.GET.get("keyword")
     birthday = request.GET.get("birthday")
-    students = Student.get_students_by(keyword, birthday)
+    code = request.GET.get("code")
+    students = Student.get_students_by(keyword=keyword, birthday=birthday, code=code)
     context = {"data": students}
     return render(request, "student/ui-students.html", context)
 

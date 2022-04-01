@@ -3,6 +3,8 @@ from django.shortcuts import redirect, render
 from apps.common_functions import login_required
 from apps.course.models import Course, CourseStudent, CourseTeacher
 from apps.subject.models import Subject
+from apps.teacher.models import Teacher
+from apps.student.models import Student
 
 
 @login_required()
@@ -23,8 +25,18 @@ def course_delete(request):
 
 @login_required()
 def course_add_ui(request):
+    student_name = request.GET.get("student_name")
+    student_code = request.GET.get("student_code")
+    teacher_name = request.GET.get("teacher_name")
+    teacher_code = request.GET.get("teacher_code")
     subject_records = Subject.get_subjects_by()
-    context = {"subject_records": subject_records}
+    teacher_records = Teacher.get_teachers_by()
+    student_records = Student.get_students_by(keyword=student_name, code=student_code)
+    context = {
+        "subject_records": subject_records,
+        "teacher_records": teacher_records,
+        "student_records": student_records,
+    }
     return render(request, "course/ui-course-add.html", context)
 
 
@@ -33,13 +45,18 @@ def course_add(request):
     name = request.POST.get("name")
     subject_id = request.POST.get("subject_id")
     description = request.POST.get("description")
-    subject = Subject.get_by_id(subject_id)
+    teachers = request.POST.getlist("teachers")
+    students = request.POST.getlist("students")
     try:
-        Course.create(
+        course_record = Course.create(
             name=name,
-            subject=subject,
+            subject_id=subject_id,
             description=description,
         )
+        for teacher_id in teachers:
+            CourseTeacher.create(course_record.id, teacher_id)
+        for student_id in students:
+            CourseStudent.create(course_record.id, student_id)
     except ValidationError as e:
         return render(request, "course/ui-course-add.html", dict(e))
 
@@ -89,10 +106,18 @@ def course_detail(request):
     id = request.GET.get("id")
     try:
         record_course = Course.get_by_id(id)
+        teacher_records = record_course.get_teacher_list()
+        student_records = record_course.get_student_list()
     except Exception as e:
         return render(request, "home/page-404.html")
     return render(
-        request, "course/ui-course-detail.html", {"record_course": record_course}
+        request,
+        "course/ui-course-detail.html",
+        {
+            "record_course": record_course,
+            "teacher_records": teacher_records,
+            "student_records": student_records,
+        },
     )
 
 
