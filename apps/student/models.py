@@ -60,7 +60,7 @@ class Student(models.Model):
     def update(
         self, name, code, avatar, address, phone, birthday, specialized, description
     ):
-        if Student.objects.filter(code=code).exclude(id=self.id).exists():
+        if Student.objects.filter(code=code, deleted=False).exclude(id=self.id).exists():
             raise ValidationError({"code": "Student code is existed"})
         self.name = name
         self.code = code

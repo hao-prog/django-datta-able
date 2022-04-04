@@ -40,7 +40,7 @@ class Score(models.Model):
             raise ValidationError({"student_id": ["This field cannot be blank."]})
         if not course_id:
             raise ValidationError({"course_id": ["This field cannot be blank."]})
-        if Score.objects.filter(student_id=student_id, course_id=course_id).exists():
+        if Score.objects.filter(student_id=student_id, course_id=course_id, deleted=False).exists():
             raise ValidationError({"score": "Score is existed"})
         score = Score(
             student_id=student_id,
@@ -57,7 +57,7 @@ class Score(models.Model):
         if not course_id:
             raise ValidationError({"course_id": ["This field cannot be blank."]})
         if (
-            Score.objects.filter(student_id=student_id, course_id=course_id)
+            Score.objects.filter(student_id=student_id, course_id=course_id, deleted=False)
             .exclude(id=self.id)
             .exists()
         ):

@@ -78,7 +78,8 @@
                                                 <td onclick="view_detail(this, '{{obj.id}}')"
                                                     style="vertical-align: middle; cursor: pointer;">{{obj.name}}</td>
                                                 <td onclick="view_detail(this, '{{obj.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">{{obj.description}}
+                                                    style="vertical-align: middle; cursor: pointer;">
+                                                    {{obj.description}}
                                                 </td>
                                                 <td>
                                                     <form action="/course_edit_ui" method="post">
@@ -86,8 +87,8 @@
                                                         <button type="submit" class="btn btn-warning"
                                                             title="Edit this course" data-toggle="tooltip"
                                                             name="course_id" value="{{obj.id}}"
-                                                            style="padding: 0px 0px !important;">
-                                                            Edit <i class="feather icon-edit"></i></button>
+                                                            style="padding: 0px 0px !important; width: 100%">
+                                                            <i class="feather icon-edit"></i></button>
                                                     </form>
                                                 </td>
                                                 <td>
@@ -97,9 +98,9 @@
                                                         <input type="hidden" name="course_id" value="{{obj.id}}">
                                                         <button type="button" class="btn btn-danger"
                                                             title="Delete this course" data-toggle="tooltip"
-                                                            style="padding: 0px 0px !important;"
-                                                            onclick="delete_course(this)" value="{{obj.id}}"> Delete <i
-                                                                class="feather icon-trash-2"></i></button>
+                                                            style="padding: 0px 0px !important; width: 100%"
+                                                            onclick="delete_course(this)" value="{{obj.id}}">
+                                                            <i class="feather icon-trash-2"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>

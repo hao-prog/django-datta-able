@@ -27,7 +27,7 @@ class Subject(models.Model):
         return Subject.objects.filter(condition)
 
     def create(name, avatar, description):
-        if Subject.objects.filter(name=name).exists():
+        if Subject.objects.filter(name=name, deleted=False).exists():
             raise ValidationError({'name': 'Name of subject is existed'})
         subject = Subject(
             name=name,
@@ -38,7 +38,7 @@ class Subject(models.Model):
         subject.save()
 
     def update(self, name, avatar, description):
-        if Subject.objects.filter(name=name).exclude(id=self.id).exists():
+        if Subject.objects.filter(name=name, deleted=False).exclude(id=self.id).exists():
             raise ValidationError({'name': 'Name of subject is existed'})
         self.name = name
         self.avatar = avatar

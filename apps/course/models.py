@@ -32,7 +32,7 @@ class Course(models.Model):
         return Course.objects.filter(condition)
 
     def create(name, subject_id, description):
-        if Course.objects.filter(name=name).exists():
+        if Course.objects.filter(name=name, deleted=False).exists():
             raise ValidationError({"name": "Name of course is existed"})
         course = Course(
             name=name,
@@ -44,7 +44,7 @@ class Course(models.Model):
         return course
 
     def update(self, name, subject, description):
-        if Course.objects.filter(name=name).exclude(id=self.id).exists():
+        if Course.objects.filter(name=name, deleted=False).exclude(id=self.id).exists():
             raise ValidationError({"name": "Name of course is existed"})
         self.name = name
         self.subject = subject
