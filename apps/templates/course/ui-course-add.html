@@ -1,11 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Course Add {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Course Add {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -41,20 +37,25 @@
                                 <form action="/course_add" method="post" id="add_form" enctype="multipart/form-data">
                                     {% csrf_token %}
 
-                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
-                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{name.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name"
-                                                value="{{name_value}}" id="name">
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-5" style="margin-left: 50px;">
+                                            <label>Name</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{name.0}}</b>
+                                        </div>
+
+                                        <div class="col-md-5" style="margin-right: 50px;">
+                                            <label>Subject</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{subject.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-5" style="margin-left: 50px;">
+                                            <input class="form-control" type="text" placeholder="Name" name="name">
                                         </div>
 
 
-                                        <label style="margin-left: 1%;" class="mb-3">Subject</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{subject.0}}</b>
-                                        <div class="input-group mb-3">
+                                        <div class="form-group col-md-5" style="margin-right: 50px;">
                                             <select class="mb-3 form-control" type="text" name="subject_id">
                                                 <option value=""> </option>
                                                 {% for subject in subject_records %}
@@ -62,25 +63,36 @@
                                                 {% endfor %}
                                             </select>
                                         </div>
+                                    </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Description</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{description.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
-                                                name="description">{{description_value}}</textarea>
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-10" style="margin-left: 50px; margin-right: 50px;">
+                                            <label>Description</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{description.0}}</b>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <button type="button" class="btn btn-primary" style="margin: auto"
-                                            title="Add new course" data-toggle="tooltip" onclick="add_course()"> Add <i
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-10" style="margin-left: 50px;">
+                                            <textarea class="form-control" rows="3" placeholder="Description" name="description"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div style="margin :auto">
+                                            <button type="button" class="btn btn-primary" style="width: 100px" title="Add new course" data-toggle="tooltip" onclick="add_course()"> Add <i
                                                 class="feather icon-plus-square"></i> </button>
+                                            <a href="/course">
+                                                <button type="button" class="btn btn-warning" style="width: 100px" title="Cancel" data-toggle="tooltip"> Cancel <i
+                                                    class="feather icon-x-circle"></i> </button>
+                                            </a>
+                                        </div>
                                     </div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h5>Course's Teachers</h5>
+                                <h5>Add Course's Teachers</h5>
                             </div>
 
                             <div class="card-block table-border-style">
@@ -94,8 +106,7 @@
                                             <tr>
                                                 <th>
                                                     <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            onclick="check_all_teachers()" id="teachers_check">
+                                                        <input type="checkbox" class="form-check-input" onclick="check_all_teachers()" id="teachers_check">
                                                         <label class="form-check-label"></label>
                                                     </div>
                                                 </th>
@@ -108,8 +119,7 @@
                                             <tr>
                                                 <th>
                                                     <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input teacher"
-                                                            name="teachers" value="{{teacher.id}}">
+                                                        <input type="checkbox" class="form-check-input teacher" name="teachers" value="{{teacher.id}}">
                                                         <label class="form-check-label"></label>
                                                     </div>
                                                 </th>
@@ -129,7 +139,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h5>Course's Students</h5>
+                                <h5>Add Course's Students</h5>
                             </div>
 
                             <div class="card-block table-border-style">
@@ -139,8 +149,7 @@
                                             <tr>
                                                 <th>
                                                     <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input"
-                                                            onclick="check_all_students()" id="students_check">
+                                                        <input type="checkbox" class="form-check-input" onclick="check_all_students()" id="students_check">
                                                         <label class="form-check-label"></label>
                                                     </div>
                                                 </th>
@@ -153,8 +162,7 @@
                                             <tr>
                                                 <th>
                                                     <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input student"
-                                                            name="students" value="{{student.id}}">
+                                                        <input type="checkbox" class="form-check-input student" name="students" value="{{student.id}}">
                                                         <label class="form-check-label"></label>
                                                     </div>
                                                 </th>

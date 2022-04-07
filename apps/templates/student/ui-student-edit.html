@@ -1,11 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Student Edit {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Student Edit {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -42,74 +38,78 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="student_id" value="{{record_student.id}}">
 
-                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
+                                    <div class="avatar-label-wrapper">
+                                        <label style="margin: 0 auto;"> Avatar </label>
+                                    </div>
+                                    <div class="avatar-label-wrapper">
+                                        <b style="color: red!important; margin: auto;" class="text-muted">{{avatar.0}}</b>
+                                    </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Avatar</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{avatar.0}}</b>
-                                        <div class="input-group mb-3" style="height: 417px; background: none;">
-                                            <div style="width: 100%; margin-bottom: 2%; height: 341px;">
-                                                <img id="img" class="avatar"
-                                                    src="/static/assets/images/student/{{record_student.avatar}}"
-                                                    onerror="this.src='static/assets/images/user/avatar-2.jpg'; this.onerror=null;">
-                                            </div>
-                                            <div class='input_box' id='fileNameTextBox'>
-                                                {{record_student.avatar}}
-                                            </div>
-                                            <label class="browse_button" for="avatar">
-                                                Browse
-                                            </label>
-                                            <input style="display:none" type="file" id="avatar" name="avatar"
-                                                onchange="getFileData(this);">
+                                    <div class="avatar-wrapper">
+                                        <img id="img" onclick="browse_file()" class="profile-pic" src="static/assets/images/student/{{record_student.avatar}}" onerror="this.src='https://banner2.cleanpng.com/20180703/ya/kisspng-computer-icons-user-avatar-user-5b3bafe2381423.1933594815306383062297.jpg'; this.onerror=null;">
+                                        <input id="avatar" type="file" accept="image/*" name="avatar" onchange="getFileData(this);">
+                                    </div>
+
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-4" style="margin-left: 50px;">
+                                            <label>Code</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{code.0}}</b>
+                                        </div>
+                                        <div class="col-md-6" style="margin-right: 50px;">
+                                            <label>Name</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{name.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-4" style="margin-left: 50px;">
+                                            <input class="form-control" type="text" placeholder="Code" name="code" value="{{record_student.code}}">
                                         </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{name.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name"
-                                                value="{{record_student.name}}" id="name">
+                                        <div class="form-group col-md-6" style="margin-right: 50px;">
+                                            <input class="form-control" type="text" placeholder="Name" name="name" value="{{record_student.name}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-5" style="margin-left: 50px;">
+                                            <label>Address</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{address.0}}</b>
+                                        </div>
+                                        <div class="col-md-5" style="margin-right: 50px;">
+                                            <label>Phone</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{phone.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-5" style="margin-left: 50px;">
+                                            <input class="form-control" type="text" placeholder="Address" name="address" value="{{record_student.address}}">
                                         </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Code</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{code.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control mb-3" type="text" placeholder="Code" name="code"
-                                                value="{{record_student.code}}">
+                                        <div class="form-group col-md-5" style="margin-right: 50px;">
+                                            <input class="form-control" type="text" placeholder="Phone" name="phone" value="{{record_student.phone}}">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-5" style="margin-left: 50px;">
+                                            <label>Birthday</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{birthday.0}}</b>
+                                        </div>
+                                        <div class="col-md-5" style="margin-right: 50px;">
+                                            <label>Specialized</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{specialized.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-5" style="margin-left: 50px;">
+                                            <input class="form-control" type="date" placeholder="Birthday" name="birthday" value="{{record_student.birthday}}">
                                         </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Address</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{address.0}} </b>
-                                        <div class="input-group mb-3">
-                                            <input class="mb-3 form-control" type="text" placeholder="Address"
-                                                name="address" value="{{record_student.address}}">
-                                        </div>
-
-                                        <label style="margin-left: 1%;" class="mb-3">Phone</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{phone.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="mb-3 form-control" type="text" placeholder="Phone"
-                                                name="phone" value="{{record_student.phone}}">
-                                        </div>
-
-                                        <label style="margin-left: 1%;" class="mb-3">Birthday</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{birthday.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="mb-3 form-control" type="date"
-                                                placeholder="Birthday (YYYY-MM-DD)" name="birthday"
-                                                value="{{record_student.birthday}}">
-                                        </div>
-
-                                        <label style="margin-left: 1%;" class="mb-3">Specialized</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{specialized.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" placeholder="Specialized"
-                                                name="specialized">
+                                        <div class="form-group col-md-5" style="margin-right: 50px;">
+                                            <select class="form-control" type="text" placeholder="Specialized" name="specialized">
                                                 <option value=""> </option>
                                                 {% for v, n in SPECIALIZED_ARR.items %}
                                                 {% if v == record_student.specialized %}
@@ -120,20 +120,31 @@
                                                 {% endfor %}
                                             </select>
                                         </div>
+                                    </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Description</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{description.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
-                                                name="description">{{record_student.description}}</textarea>
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-10" style="margin-left: 50px; margin-right: 50px;">
+                                            <label>Description</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{description.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-10" style="margin-left: 50px;">
+                                            <textarea class="form-control" rows="3" placeholder="Description" name="description">{{record_student.description}}</textarea>
                                         </div>
                                     </div>
                                 </form>
-                                <div class="row">
-                                    <button type="button" class="btn btn-primary" style="margin: auto"
-                                        title="Edit student" data-toggle="tooltip" onclick="edit_student()"> Edit <i
+
+                                <div class="row form-group">
+                                    <div style="margin :auto">
+                                        <button type="button" class="btn btn-primary" style="width: 100px" title="Edit student" data-toggle="tooltip" onclick="edit_student()"> Edit <i
                                             class="feather icon-edit"></i> </button>
+                                        <a href="/student">
+                                            <button type="button" class="btn btn-warning" style="width: 100px" title="Cancel" data-toggle="tooltip"> Cancel <i
+                                                class="feather icon-x-circle"></i> </button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -165,8 +176,11 @@
         if (file) {
             var filename = file.name;
             document.getElementById('img').src = URL.createObjectURL(file);
-            document.getElementById("fileNameTextBox").innerHTML = filename;
         }
+    }
+
+    function browse_file() {
+        document.getElementById("avatar").click();
     }
 </script>
 {% endblock javascripts %}

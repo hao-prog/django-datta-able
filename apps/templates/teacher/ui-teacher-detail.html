@@ -1,13 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Teacher Detail {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Teacher Detail {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
-
-{% load home_extras %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %} {% load home_extras %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -41,59 +35,61 @@
                                 <h5>Teacher Informations</h5>
                                 <hr>
 
-                                <div class="row" style="margin-left: 35%; margin-right: 35%;">
+                                <div class="avatar-label-wrapper">
+                                    <label style="margin: 0 auto;"> Avatar </label>
+                                </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Avatar</label>
-                                    <div class="input-group mb-3" style="background: none;">
-                                        <input type="hidden" name="avatar_tmp" value="{{avatar_tmp}}">
-                                        <div style="width: 100%; margin-bottom: 2%; height: 341px;">
-                                            <img id="img" class="avatar"
-                                                src="/static/assets/images/teacher/{{record_teacher.avatar}}"
-                                                onerror="this.src='static/assets/images/user/avatar-2.jpg'; this.onerror=null;">
-                                        </div>
+                                <div class="avatar-wrapper">
+                                    <img id="img" class="profile-pic" src="/static/assets/images/teacher/{{record_teacher.avatar}}" onerror="this.src='https://banner2.cleanpng.com/20180703/ya/kisspng-computer-icons-user-avatar-user-5b3bafe2381423.1933594815306383062297.jpg'; this.onerror=null;">
+                                </div>
+
+                                <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                    <div class="form-group col-md-4" style="margin-left: 50px;">
+                                        <label>Name</label>
+                                        <div class="form-control"> {{record_teacher.name}} </div>
                                     </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                    <div class="input-group mb-3">
-                                        <div class="form-control mb-3"> {{record_teacher.name}} </div>
+                                    <div class="form-group col-md-6" style="margin-right: 50px;">
+                                        <label>Address</label>
+                                        <div class="form-control"> {{record_teacher.address}} </div>
                                     </div>
+                                </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Address</label>
-                                    <div class="input-group mb-3">
-                                        <div class="mb-3 form-control"> {{record_teacher.address}} </div>
-                                    </div>
-
-                                    <label style="margin-left: 1%;" class="mb-3">Phone</label>
-                                    <div class="input-group mb-3">
+                                <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                    <div class="form-group col-md-5" style="margin-left: 50px;">
+                                        <label>Phone</label>
                                         <div class="mb-3 form-control"> {{record_teacher.phone}} </div>
                                     </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Birthday</label>
-                                    <div class="input-group mb-3">
+                                    <div class="form-group col-md-5" style="margin-right: 50px;">
+                                        <label>Birthday</label>
                                         <div class="mb-3 form-control"> {{record_teacher.birthday}} </div>
                                     </div>
+                                </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Specialized</label>
-                                    <div class="input-group mb-3">
-                                        <div class="mb-3 form-control">
+                                <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                    <div class="col-md-5" style="margin-left: 50px;">
+                                        <label>Specialized</label>
+                                        <div class="form-control">
                                             {{SPECIALIZED_ARR|get_item:record_teacher.specialized}}
                                         </div>
                                     </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Degree</label>
-                                    <div class="input-group mb-3">
+                                    <div class="form-group col-md-5" style="margin-right: 50px;">
+                                        <label>Degree</label>
                                         <div class="mb-3 form-control">
                                             {{DEGREE_ARR|get_item:record_teacher.degree}}
                                         </div>
                                     </div>
+                                </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Description</label>
-                                    <div class="input-group mb-3">
-                                        <textarea readonly class="form-control mb-3" id="" rows="3"
-                                            placeholder="Description"
-                                            name="description">{{record_teacher.description}}</textarea>
+                                <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                    <div class="form-group col-md-10" style="margin-left: 50px;">
+                                        <label>Description</label>
+                                        <textarea readonly class="form-control" rows="3">{{record_teacher.description}}</textarea>
                                     </div>
                                 </div>
+
                             </div>
 
                         </div>

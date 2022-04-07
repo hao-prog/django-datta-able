@@ -1,13 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Course Detail {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Course Detail {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
-
-{% load home_extras %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %} {% load home_extras %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -41,24 +35,26 @@
                                 <h5>Course Informations</h5>
                                 <hr>
 
-                                <div class="row" style="margin-left: 35%; margin-right: 35%;">
-                                    <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                    <div class="input-group mb-3">
-                                        <div class="form-control mb-3"> {{record_course.name}} </div>
+                                <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                    <div class="form-group col-md-5" style="margin-left: 50px;">
+                                        <label>Name</label>
+                                        <div class="form-control"> {{record_course.name}} </div>
                                     </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Subject</label>
-                                    <div class="input-group mb-3">
-                                        <div class="mb-3 form-control">
+
+                                    <div class="form-group col-md-5" style="margin-right: 50px;">
+                                        <label>Subject</label>
+                                        <div class="form-control">
                                             {{record_course.subject.name}}
                                         </div>
                                     </div>
+                                </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Description</label>
-                                    <div class="input-group mb-3">
-                                        <textarea readonly class="form-control mb-3" id="" rows="3"
-                                            placeholder="Description"
-                                            name="description">{{record_course.description}}</textarea>
+                                <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                    <div class="form-group col-md-10" style="margin-left: 50px;">
+
+                                        <label>Description</label>
+                                        <textarea readonly class="form-control" rows="3">{{record_course.description}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -82,12 +78,10 @@
                                         <tbody>
                                             {% for teacher in teacher_records %}
                                             <tr>
-                                                <th scope="row" onclick="view_detail_teacher(this, '{{teacher.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
+                                                <th scope="row" onclick="view_detail_teacher(this, '{{teacher.id}}')" style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
                                                 </th>
 
-                                                <td onclick="view_detail_teacher(this, '{{teacher.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">
+                                                <td onclick="view_detail_teacher(this, '{{teacher.id}}')" style="vertical-align: middle; cursor: pointer;">
                                                     {{teacher.name}}
                                                 </td>
 
@@ -118,15 +112,12 @@
                                         <tbody>
                                             {% for student in student_records %}
                                             <tr>
-                                                <th scope="row" onclick="view_detail_student(this, '{{student.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
+                                                <th scope="row" onclick="view_detail_student(this, '{{student.id}}')" style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
                                                 </th>
-                                                <td onclick="view_detail_student(this, '{{student.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">
+                                                <td onclick="view_detail_student(this, '{{student.id}}')" style="vertical-align: middle; cursor: pointer;">
                                                     {{student.code}}
                                                 </td>
-                                                <td onclick="view_detail_student(this, '{{student.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">
+                                                <td onclick="view_detail_student(this, '{{student.id}}')" style="vertical-align: middle; cursor: pointer;">
                                                     {{student.name}}
                                                 </td>
 

@@ -32,6 +32,8 @@ class Course(models.Model):
         return Course.objects.filter(condition)
 
     def create(name, subject_id, description):
+        if not subject_id:
+            raise ValidationError({"subject": ["This field cannot be blank."]})
         if Course.objects.filter(name=name, deleted=False).exists():
             raise ValidationError({"name": "Name of course is existed"})
         course = Course(
@@ -43,11 +45,13 @@ class Course(models.Model):
         course.save()
         return course
 
-    def update(self, name, subject, description):
+    def update(self, name, subject_id, description):
+        if not subject_id:
+            raise ValidationError({"subject": ["This field cannot be blank."]})
         if Course.objects.filter(name=name, deleted=False).exclude(id=self.id).exists():
             raise ValidationError({"name": "Name of course is existed"})
         self.name = name
-        self.subject = subject
+        self.subject_id = subject_id
         self.description = description
         self.clean_fields()
         self.save()

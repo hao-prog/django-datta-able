@@ -1,11 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Score Edit {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Score Edit {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -42,12 +38,26 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="score_id" value="{{record_score.id}}">
 
-                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
-                                        <label style="margin-left: 1%;" class="mb-3">Student Name</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{student_id.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" name="student_id">
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-4" style="margin-left: 50px;">
+                                            <label>Student Name</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{student_id.0}}</b>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label>Course Name</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{course_id.0}}</b>
+                                        </div>
+
+                                        <div class="col-md-2" style="margin-right: 50px;">
+                                            <label>Score</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{score.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-4" style="margin-left: 50px;">
+                                            <select class="form-control" type="text" name="student_id">
                                                 <option value=""> </option>
                                                 {% for student in student_records %}
                                                 {% if student == record_score.student %}
@@ -59,11 +69,8 @@
                                             </select>
                                         </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Course Name</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{course_id.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" name="course_id">
+                                        <div class="form-group col-md-4">
+                                            <select class="form-control" type="text" name="course_id">
                                                 <option value=""> </option>
                                                 {% for course in course_records %}
                                                 {% if course == record_score.course %}
@@ -75,27 +82,34 @@
                                             </select>
                                         </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Score</label>
-                                        <b style="color: red!important; margin-left: 3%;" class="text-muted">{{score.0}}
-                                        </b>
-                                        <div class="input-group mb-3">
-                                            <input class="mb-3 form-control" type="text" placeholder="Score"
-                                                name="score" value="{{record_score.score}}">
+                                        <div class="form-group col-md-2" style="margin-right: 50px;">
+                                            <input class="form-control" type="text" placeholder="Score" name="score" value="{{record_score.score}}">
                                         </div>
+                                    </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Description</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{description.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
-                                                name="description">{{record_score.description}}</textarea>
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-10" style="margin-left: 50px; margin-right: 50px;">
+                                            <label>Description</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{description.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-10" style="margin-left: 50px;">
+                                            <textarea class="form-control" rows="3" name="description">{{record_score.description}}</textarea>
                                         </div>
                                     </div>
                                 </form>
-                                <div class="row">
-                                    <button type="button" class="btn btn-primary" style="margin: auto"
-                                        title="Edit score" data-toggle="tooltip" onclick="edit_score()"> Edit <i
+
+                                <div class="row form-group">
+                                    <div style="margin :auto">
+                                        <button type="button" class="btn btn-primary" style="width: 100px" title="Edit score" data-toggle="tooltip" onclick="edit_score()"> Edit <i
                                             class="feather icon-edit"></i> </button>
+                                        <a href="/score">
+                                            <button type="button" class="btn btn-warning" style="width: 100px" title="Cancel" data-toggle="tooltip"> Cancel <i
+                                                class="feather icon-x-circle"></i> </button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -119,15 +133,6 @@
             form.submit();
         } else {
 
-        }
-    }
-
-    function getFileData(myFile) {
-        var file = myFile.files[0];
-        if (file) {
-            var filename = file.name;
-            document.getElementById('img').src = URL.createObjectURL(file);
-            document.getElementById("fileNameTextBox").innerHTML = filename;
         }
     }
 </script>

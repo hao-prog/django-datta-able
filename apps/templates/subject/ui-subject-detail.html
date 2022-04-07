@@ -1,13 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Subject Detail {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Subject Detail {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
-
-{% load home_extras %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %} {% load home_extras %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -41,27 +35,28 @@
                                 <h5>Subject Informations</h5>
                                 <hr>
 
-                                <div class="row" style="margin-left: 35%; margin-right: 35%;">
+                                <div class="avatar-label-wrapper">
+                                    <label style="margin: 0 auto;"> Avatar </label>
+                                </div>
+                                <div class="avatar-label-wrapper">
+                                    <b style="color: red!important; margin: auto;" class="text-muted">{{avatar.0}}</b>
+                                </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Avatar</label>
-                                    <div class="input-group mb-3" style="background: none;">
-                                        <div style="width: 100%; margin-bottom: 2%; height: 341px;">
-                                            <img id="img" class="avatar"
-                                                src="/static/assets/images/subject/{{record_subject.avatar}}"
-                                                onerror="this.src='static/assets/images/widget/emoticon.png'; this.onerror=null;">
-                                        </div>
+                                <div class="avatar-wrapper">
+                                    <img id="img" class="profile-pic" src="/static/assets/images/subject/{{record_subject.avatar}}" onerror="this.src='https://cdn-icons-png.flaticon.com/128/3301/3301750.png'; this.onerror=null;">
+                                </div>
+
+                                <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                    <div class="form-group col-md-10" style="margin-right: 50px; margin-left: 50px;">
+                                        <label>Name</label>
+                                        <div class="form-control"> {{record_subject.name}} </div>
                                     </div>
+                                </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                    <div class="input-group mb-3">
-                                        <div class="form-control mb-3"> {{record_subject.name}} </div>
-                                    </div>
-
-                                    <label style="margin-left: 1%;" class="mb-3">Description</label>
-                                    <div class="input-group mb-3">
-                                        <textarea readonly class="form-control mb-3" id="" rows="3"
-                                            placeholder="Description"
-                                            name="description">{{record_subject.description}}</textarea>
+                                <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                    <div class="form-group col-md-10" style="margin-left: 50px;">
+                                        <label style="margin-left: 1%;" class="mb-3">Description</label>
+                                        <textarea readonly class="form-control" rows="3">{{record_subject.description}}</textarea>
                                     </div>
                                 </div>
                             </div>

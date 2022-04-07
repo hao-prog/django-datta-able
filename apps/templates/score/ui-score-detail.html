@@ -1,13 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Score Detail {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Score Detail {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
-
-{% load home_extras %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %} {% load home_extras %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -41,26 +35,27 @@
                                 <h5>Score Informations</h5>
                                 <hr>
 
-                                <div class="row" style="margin-left: 35%; margin-right: 35%;">
-                                    <label style="margin-left: 1%;" class="mb-3">Student Name</label>
-                                    <div class="input-group mb-3">
-                                        <div class="mb-3 form-control"> {{record_score.student.name}} </div>
+                                <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                    <div class="form-group col-md-4" style="margin-left: 50px;">
+                                        <label>Student Name</label>
+                                        <div class="form-control"> {{record_score.student.name}} </div>
                                     </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Course Name</label>
-                                    <div class="input-group mb-3">
-                                        <div class="mb-3 form-control"> {{record_score.course.name}} </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Course Name</label>
+                                        <div class="form-control"> {{record_score.course.name}} </div>
                                     </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Score</label>
-                                    <div class="input-group mb-3">
-                                        <div class="mb-3 form-control"> {{record_score.score}} </div>
+                                    <div class="form-group col-md-2" style="margin-right: 50px;">
+                                        <label>Score</label>
+                                        <div class="form-control"> {{record_score.score}} </div>
                                     </div>
+                                </div>
 
-                                    <label style="margin-left: 1%;" class="mb-3">Description</label>
-                                    <div class="input-group mb-3">
-                                        <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
-                                            name="description"> {{record_score.description}} </textarea>
+                                <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                    <div class="form-group col-md-10" style="margin-left: 50px;">
+                                        <label>Description</label>
+                                        <textarea readonly class="form-control" rows="3">{{record_score.description}}</textarea>
                                     </div>
                                 </div>
                             </div>

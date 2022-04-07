@@ -87,12 +87,11 @@ def course_edit(request):
     description = request.POST.get("description")
 
     course = Course.get_by_id(course_id)
-    subject = Subject.get_by_id(subject_id)
 
     try:
         course.update(
             name=name,
-            subject=subject,
+            subject_id=subject_id,
             description=description,
         )
     except ValidationError as e:

@@ -1,11 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Teacher Add {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Teacher Add {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -41,66 +37,74 @@
                                 <form action="/teacher_add" method="post" id="add_form" enctype="multipart/form-data">
                                     {% csrf_token %}
 
-                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
+                                    <div class="avatar-label-wrapper">
+                                        <label style="margin: 0 auto;"> Avatar </label>
+                                    </div>
+                                    <div class="avatar-label-wrapper">
+                                        <b style="color: red!important; margin: auto;" class="text-muted">{{avatar.0}}</b>
+                                    </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Avatar</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{avatar.0}}</b>
-                                        <div class="input-group mb-3" style="height: 417px; background: none;">
-                                            <input type="hidden" name="avatar_tmp" value="{{avatar_tmp}}">
-                                            <div style="width: 100%; margin-bottom: 2%; height: 341px;">
-                                                <img id="img" class="avatar"
-                                                    src="/static/assets/images/tmp/teacher/{{avatar_value}}"
-                                                    onerror="this.src='static/assets/images/user/avatar-2.jpg'; this.onerror=null;">
-                                            </div>
-                                            <div class='input_box' id='fileNameTextBox'>
-                                                {{avatar_value}}
-                                            </div>
-                                            <label class="browse_button" for="avatar">
-                                                Browse
-                                            </label>
-                                            <input style="display:none" type="file" id="avatar" name="avatar"
-                                                onchange="getFileData(this);">
+                                    <div class="avatar-wrapper">
+                                        <img id="img" onclick="browse_file()" class="profile-pic" src="https://banner2.cleanpng.com/20180703/ya/kisspng-computer-icons-user-avatar-user-5b3bafe2381423.1933594815306383062297.jpg ">
+                                        <input id="avatar" type="file" accept="image/*" name="avatar" onchange="getFileData(this);">
+                                    </div>
+
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-4" style="margin-left: 50px;">
+                                            <label>Name</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{name.0}}</b>
+                                        </div>
+                                        <div class="col-md-6" style="margin-right: 50px;">
+                                            <label>Address</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{address.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-4" style="margin-left: 50px;">
+                                            <input class="form-control" type="text" placeholder="Name" name="name">
                                         </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{name.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name"
-                                                value="{{name_value}}" id="name">
+                                        <div class="form-group col-md-6" style="margin-right: 50px;">
+                                            <input class="form-control" type="text" placeholder="Address" name="address">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-5" style="margin-left: 50px;">
+                                            <label>Phone</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{phone.0}}</b>
+                                        </div>
+                                        <div class="col-md-5" style="margin-right: 50px;">
+                                            <label>Birthday</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{birthday.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-5" style="margin-left: 50px;">
+                                            <input class="form-control" type="text" placeholder="Phone" name="phone">
                                         </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Address</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{address.0}} </b>
-                                        <div class="input-group mb-3">
-                                            <input class="mb-3 form-control" type="text" placeholder="Address"
-                                                name="address" value="{{address_value}}">
+                                        <div class="form-group col-md-5" style="margin-right: 50px;">
+                                            <input class="form-control" type="date" placeholder="Birthday" name="birthday">
                                         </div>
+                                    </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Phone</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{phone.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="mb-3 form-control" type="text" placeholder="Phone"
-                                                name="phone" value="{{phone_value}}">
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-5" style="margin-left: 50px;">
+                                            <label>Specialized</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{specialized.0}}</b>
                                         </div>
-
-                                        <label style="margin-left: 1%;" class="mb-3">Birthday</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{birthday.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="mb-3 form-control" type="date"
-                                                placeholder="Birthday (YYYY-MM-DD)" name="birthday"
-                                                value="{{birthday_value}}">
+                                        <div class="col-md-5" style="margin-right: 50px;">
+                                            <label>Degree</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{degree.0}}</b>
                                         </div>
+                                    </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Specialized</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{specialized.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" name="specialized">
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-5" style="margin-left: 50px;">
+                                            <select class="form-control" type="text" name="specialized">
                                                 <option value=""> </option>
                                                 {% for v, n in SPECIALIZED_ARR.items %}
                                                 <option value="{{v}}"> {{n}}</option>
@@ -108,31 +112,39 @@
                                             </select>
                                         </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Degree</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{specialized.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" name="degree">
+                                        <div class="form-group col-md-5" style="margin-right: 50px;">
+                                            <select class="form-control" type="text" name="degree">
                                                 <option value=""> </option>
                                                 {% for v, n in DEGREE_ARR.items %}
                                                 <option value="{{v}}"> {{n}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
+                                    </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Description</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{description.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
-                                                name="description">{{description_value}}</textarea>
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-10" style="margin-left: 50px; margin-right: 50px;">
+                                            <label>Description</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{description.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-10" style="margin-left: 50px;">
+                                            <textarea class="form-control" rows="3" placeholder="Description" name="description"></textarea>
                                         </div>
                                     </div>
                                 </form>
-                                <div class="row">
-                                    <button type="button" class="btn btn-primary" style="margin: auto"
-                                        title="Add new teacher" data-toggle="tooltip" onclick="add_teacher()"> Add <i
+
+                                <div class="row form-group">
+                                    <div style="margin :auto">
+                                        <button type="button" class="btn btn-primary" style="width: 100px" title="Add new teacher" data-toggle="tooltip" onclick="add_teacher()"> Add <i
                                             class="feather icon-plus-square"></i> </button>
+                                        <a href="/teacher">
+                                            <button type="button" class="btn btn-warning" style="width: 100px" title="Cancel" data-toggle="tooltip"> Cancel <i
+                                                class="feather icon-x-circle"></i> </button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -164,8 +176,11 @@
         if (file) {
             var filename = file.name;
             document.getElementById('img').src = URL.createObjectURL(file);
-            document.getElementById("fileNameTextBox").innerHTML = filename;
         }
+    }
+
+    function browse_file() {
+        document.getElementById("avatar").click();
     }
 </script>
 {% endblock javascripts %}

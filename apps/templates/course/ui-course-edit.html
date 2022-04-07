@@ -1,11 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Course Edit {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Course Edit {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -42,20 +38,26 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="course_id" value="{{record_course.id}}">
 
-                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
-                                        <label style="margin-left: 1%;" class="mb-3">Name</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{name.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <input class="form-control mb-3" type="text" placeholder="Name" name="name"
-                                                value="{{record_course.name}}" id="name">
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-5" style="margin-left: 50px;">
+                                            <label>Name</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{name.0}}</b>
                                         </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Subject</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{subject.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" name="subject_id">
+                                        <div class="col-md-5" style="margin-right: 50px;">
+                                            <label>Subject</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{subject.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-5" style="margin-left: 50px;">
+                                            <input class="form-control" type="text" placeholder="Name" name="name" value="{{record_course.name}}">
+                                        </div>
+
+
+                                        <div class="form-group col-md-5" style="margin-right: 50px;">
+                                            <select class="form-control" type="text" name="subject_id">
                                                 <option value=""> </option>
                                                 {% for subject in subject_records %}
                                                 {% if subject == record_course.subject %}
@@ -66,20 +68,31 @@
                                                 {% endfor %}
                                             </select>
                                         </div>
+                                    </div>
 
-                                        <label style="margin-left: 1%;" class="mb-3">Description</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{description.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <textarea class="form-control mb-3" id="" rows="3" placeholder="Description"
-                                                name="description">{{record_course.description}}</textarea>
+                                    <div class="col-md-9 row" style="margin-left: auto; margin-right: auto;">
+                                        <div class="col-md-10" style="margin-left: 50px; margin-right: 50px;">
+                                            <label>Description</label>
+                                            <b style="color: red!important; margin-left: 3%;" class="text-muted">{{description.0}}</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 row form-group" style="margin-left: auto; margin-right: auto;">
+                                        <div class="form-group col-md-10" style="margin-left: 50px;">
+                                            <textarea class="form-control" rows="3" placeholder="Description" name="description">{{record_course.description}}</textarea>
                                         </div>
                                     </div>
                                 </form>
-                                <div class="row">
-                                    <button type="button" class="btn btn-primary" style="margin: auto"
-                                        title="Edit course" data-toggle="tooltip" onclick="edit_course()"> Edit <i
+
+                                <div class="row form-group">
+                                    <div style="margin :auto">
+                                        <button type="button" class="btn btn-primary" style="width: 100px" title="Edit course" data-toggle="tooltip" onclick="edit_course()"> Edit <i
                                             class="feather icon-edit"></i> </button>
+                                        <a href="/course">
+                                            <button type="button" class="btn btn-warning" style="width: 100px" title="Cancel" data-toggle="tooltip"> Cancel <i
+                                                class="feather icon-x-circle"></i> </button>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -108,8 +121,7 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="course_id" value="{{record_course.id}}">
 
-                                    <button type="submit" class="btn btn-primary" title="Add a new teacher for course"
-                                        data-toggle="tooltip" style="float: right"> Add <i
+                                    <button type="submit" class="btn btn-primary" title="Add a new teacher for course" data-toggle="tooltip" style="float: right"> Add <i
                                             class="feather icon-plus-square"></i> </button>
                                 </form>
                                 <div class="table-responsive">
@@ -124,25 +136,17 @@
                                         <tbody>
                                             {% for teacher in teacher_records %}
                                             <tr>
-                                                <th scope="row" onclick="view_detail_teacher(this, '{{teacher.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
+                                                <th scope="row" onclick="view_detail_teacher(this, '{{teacher.id}}')" style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
                                                 </th>
-                                                <td onclick="view_detail_teacher(this, '{{teacher.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">{{teacher.name}}
+                                                <td onclick="view_detail_teacher(this, '{{teacher.id}}')" style="vertical-align: middle; cursor: pointer;">{{teacher.name}}
                                                 </td>
 
                                                 <td>
-                                                    <form action="/course_teacher_delete" method="post"
-                                                        id="delete_form_{{teacher.id}}">
+                                                    <form action="/course_teacher_delete" method="post" id="delete_form_{{teacher.id}}">
                                                         {% csrf_token %}
-                                                        <input type="hidden" name="course_id"
-                                                            value="{{record_course.id}}">
+                                                        <input type="hidden" name="course_id" value="{{record_course.id}}">
                                                         <input type="hidden" name="teacher_id" value="{{teacher.id}}">
-                                                        <button type="button" class="btn btn-danger"
-                                                            title="Delete this teacher" data-toggle="tooltip"
-                                                            style="padding: 0px 0px !important; width: 100%"
-                                                            onclick="delete_course_teacher(this)"
-                                                            value="{{teacher.id}}">
+                                                        <button type="button" class="btn btn-danger" title="Delete this teacher" data-toggle="tooltip" style="padding: 0px 0px !important; width: 100%" onclick="delete_course_teacher(this)" value="{{teacher.id}}">
                                                             <i class=" feather icon-trash-2"></i></button>
                                                     </form>
                                                 </td>
@@ -165,8 +169,7 @@
                                     {% csrf_token %}
                                     <input type="hidden" name="course_id" value="{{record_course.id}}">
 
-                                    <button type="submit" class="btn btn-primary" title="Add a new student for course"
-                                        data-toggle="tooltip" style="float: right"> Add <i
+                                    <button type="submit" class="btn btn-primary" title="Add a new student for course" data-toggle="tooltip" style="float: right"> Add <i
                                             class="feather icon-plus-square"></i> </button>
                                 </form>
                                 <div class="table-responsive">
@@ -181,25 +184,17 @@
                                         <tbody>
                                             {% for student in student_records %}
                                             <tr>
-                                                <th scope="row" onclick="view_detail_student(this, '{{student.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
+                                                <th scope="row" onclick="view_detail_student(this, '{{student.id}}')" style="vertical-align: middle; cursor: pointer;">{{forloop.counter}}
                                                 </th>
-                                                <td onclick="view_detail_student(this, '{{student.id}}')"
-                                                    style="vertical-align: middle; cursor: pointer;">{{student.name}}
+                                                <td onclick="view_detail_student(this, '{{student.id}}')" style="vertical-align: middle; cursor: pointer;">{{student.name}}
                                                 </td>
 
                                                 <td>
-                                                    <form action="/course_student_delete" method="post"
-                                                        id="delete_form_{{student.id}}">
+                                                    <form action="/course_student_delete" method="post" id="delete_form_{{student.id}}">
                                                         {% csrf_token %}
-                                                        <input type="hidden" name="course_id"
-                                                            value="{{record_course.id}}">
+                                                        <input type="hidden" name="course_id" value="{{record_course.id}}">
                                                         <input type="hidden" name="student_id" value="{{student.id}}">
-                                                        <button type="button" class="btn btn-danger"
-                                                            title="Delete this student" data-toggle="tooltip"
-                                                            style="padding: 0px 0px !important; width: 100%"
-                                                            onclick="delete_course_student(this)"
-                                                            value="{{student.id}}">
+                                                        <button type="button" class="btn btn-danger" title="Delete this student" data-toggle="tooltip" style="padding: 0px 0px !important; width: 100%" onclick="delete_course_student(this)" value="{{student.id}}">
                                                             <i class="feather icon-trash-2"></i></button>
                                                     </form>
                                                 </td>
