@@ -1,11 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Course Student Add {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Course Student Add {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -35,34 +31,55 @@
                             <div class="card-header">
                                 <h5>Course Student Add</h5>
                             </div>
-                            
+
                             <div class="card-body">
                                 <h5>Choose Student</h5>
                                 <hr>
-                                <form action="/course_student_add" method="post" id="add_form"
-                                    enctype="multipart/form-data">
+                                <form action="/course_student_add" method="post" id="add_form" enctype="multipart/form-data">
                                     {% csrf_token %}
                                     <input type="hidden" name="course_id" value="{{course_id}}">
-                                    
-                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
-                                        <label style="margin-left: 1%;" class="mb-3">Student</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{student.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" name="student_id">
-                                                <option value=""> </option>
-                                                {% for student in student_records %}
-                                                <option value="{{student.id}}"> {{student.name}}</option>
-                                                {% endfor %}
-                                            </select>
+
+                                    <div class="card-block table-border-style">
+                                        <button type="button" class="btn btn-primary" style="float: right;" title="Add new student" data-toggle="tooltip" onclick="add_student()"> Add <i
+                                            class="feather icon-plus-square"></i> </button>
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input" onclick="check_all_students()" id="students_check">
+                                                                <label class="form-check-label"></label>
+                                                            </div>
+                                                        </th>
+                                                        <th>Code</th>
+                                                        <th>Name</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for student in student_records %}
+                                                    <tr>
+                                                        <th>
+                                                            <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input student" name="students" value="{{student.id}}">
+                                                                <label class="form-check-label"></label>
+                                                            </div>
+                                                        </th>
+                                                        <td style="vertical-align: middle; cursor: pointer;">
+                                                            {{student.code}}
+                                                        </td>
+                                                        <td style="vertical-align: middle; cursor: pointer;">
+                                                            {{student.name}}
+                                                        </td>
+
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </form>
-                                <div class="row">
-                                    <button type="button" class="btn btn-primary" style="margin: auto"
-                                        title="Add new student" data-toggle="tooltip" onclick="add_student()"> Add <i
-                                            class="feather icon-plus-square"></i> </button>
-                                </div>
                             </div>
 
                         </div>
@@ -80,7 +97,7 @@
 {% block javascripts %}
 <script>
     function add_student() {
-        if (confirm("Are you sure you want to add this student?")) {
+        if (confirm("Are you sure you want to add this student(s) ?")) {
             var form = document.getElementById('add_form');
             form.submit();
         } else {

@@ -25,13 +25,13 @@ def course_delete(request):
 
 @login_required()
 def course_add_ui(request):
-    student_name = request.GET.get("student_name")
-    student_code = request.GET.get("student_code")
-    teacher_name = request.GET.get("teacher_name")
-    teacher_code = request.GET.get("teacher_code")
+    # student_name = request.GET.get("student_name")
+    # student_code = request.GET.get("student_code")
+    # teacher_name = request.GET.get("teacher_name")
+    # teacher_code = request.GET.get("teacher_code")
     subject_records = Subject.get_subjects_by()
     teacher_records = Teacher.get_teachers_by()
-    student_records = Student.get_students_by(keyword=student_name, code=student_code)
+    student_records = Student.get_students_by()
     context = {
         "subject_records": subject_records,
         "teacher_records": teacher_records,
@@ -141,9 +141,11 @@ def course_student_add_ui(request):
 @login_required()
 def course_teacher_add(request):
     course_id = request.POST.get("course_id")
-    teacher_id = request.POST.get("teacher_id")
+    teachers = request.POST.getlist("teachers")
+    
     try:
-        CourseTeacher.create(course_id, teacher_id)
+        for teacher_id in teachers:
+            CourseTeacher.create(course_id, teacher_id)
     except ValidationError as e:
         return render(request, "course/ui-course-teacher-add.html", dict(e))
     return redirect("/course")
@@ -152,9 +154,10 @@ def course_teacher_add(request):
 @login_required()
 def course_student_add(request):
     course_id = request.POST.get("course_id")
-    student_id = request.POST.get("student_id")
+    students = request.POST.getlist("students")
     try:
-        CourseStudent.create(course_id, student_id)
+        for student_id in students:
+            CourseStudent.create(course_id, student_id)
     except ValidationError as e:
         return render(request, "course/ui-course-student-add.html", dict(e))
     return redirect("/course")
@@ -163,16 +166,22 @@ def course_student_add(request):
 @login_required()
 def course_teacher_delete(request):
     course_id = request.POST.get("course_id")
-    teacher_id = request.POST.get("teacher_id")
-    course_teacher = CourseTeacher.get_by(course_id=course_id, teacher_id=teacher_id)
-    course_teacher.delete()
+    teachers = request.POST.getlist("teachers")
+    try:
+        for teacher_id in teachers:
+            CourseTeacher.delete_by(course_id=course_id, teacher_id=teacher_id)
+    except ValidationError as e:
+        return render(request, "course/ui-course-edit.html", dict(e))
     return redirect("/course")
 
 
 @login_required()
 def course_student_delete(request):
     course_id = request.POST.get("course_id")
-    student_id = request.POST.get("student_id")
-    course_student = CourseStudent.get_by(course_id=course_id, student_id=student_id)
-    course_student.delete()
+    students = request.POST.getlist("students")
+    try:
+        for student_id in students:
+            CourseStudent.delete_by(course_id=course_id, student_id=student_id)
+    except ValidationError as e:
+        return render(request, "course/ui-course-edit.html", dict(e))
     return redirect("/course")

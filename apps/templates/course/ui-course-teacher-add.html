@@ -1,11 +1,7 @@
-{% extends "layouts/base.html" %}
-
-{% block title %} UI Course Teacher Add {% endblock %}
+{% extends "layouts/base.html" %} {% block title %} UI Course Teacher Add {% endblock %}
 
 <!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
-{% block content %}
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
@@ -38,30 +34,49 @@
                             <div class="card-body">
                                 <h5>Choose Teacher</h5>
                                 <hr>
-                                <form action="/course_teacher_add" method="post" id="add_form"
-                                    enctype="multipart/form-data">
+                                <form action="/course_teacher_add" method="post" id="add_form">
                                     {% csrf_token %}
                                     <input type="hidden" name="course_id" value="{{course_id}}">
-                                    
-                                    <div class="row" style="margin-left: 35%; margin-right: 35%;">
-                                        <label style="margin-left: 1%;" class="mb-3">Teacher</label>
-                                        <b style="color: red!important; margin-left: 3%;"
-                                            class="text-muted">{{teacher.0}}</b>
-                                        <div class="input-group mb-3">
-                                            <select class="mb-3 form-control" type="text" name="teacher_id">
-                                                <option value=""> </option>
-                                                {% for teacher in teacher_records %}
-                                                <option value="{{teacher.id}}"> {{teacher.name}}</option>
-                                                {% endfor %}
-                                            </select>
+
+                                    <div class="card-block table-border-style">
+                                        <button type="button" class="btn btn-primary" style="float: right;" title="Add new teacher" data-toggle="tooltip" onclick="add_teacher()"> Add <i
+                                            class="feather icon-plus-square"></i> </button>
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input" onclick="check_all_teachers()" id="teachers_check">
+                                                                <label class="form-check-label"></label>
+                                                            </div>
+                                                        </th>
+                                                        <th>Name</th>
+                                                        <th style="width: 50px;"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for teacher in teacher_records %}
+                                                    <tr>
+                                                        <th>
+                                                            <div class="form-check">
+                                                                <input type="checkbox" class="form-check-input teacher" name="teachers" value="{{teacher.id}}">
+                                                                <label class="form-check-label"></label>
+                                                            </div>
+                                                        </th>
+
+                                                        <td style="vertical-align: middle; cursor: pointer;">
+                                                            {{teacher.name}}
+                                                        </td>
+
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </form>
-                                <div class="row">
-                                    <button type="button" class="btn btn-primary" style="margin: auto"
-                                        title="Add new teacher" data-toggle="tooltip" onclick="add_teacher()"> Add <i
-                                            class="feather icon-plus-square"></i> </button>
-                                </div>
                             </div>
 
                         </div>
@@ -79,7 +94,7 @@
 {% block javascripts %}
 <script>
     function add_teacher() {
-        if (confirm("Are you sure you want to add this teacher?")) {
+        if (confirm("Are you sure you want to add this teacher(s) ?")) {
             var form = document.getElementById('add_form');
             form.submit();
         } else {

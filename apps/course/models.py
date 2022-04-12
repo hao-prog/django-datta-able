@@ -113,6 +113,10 @@ class CourseTeacher(models.Model):
         self.deleted = True
         self.save()
 
+    def delete_by(course_id, teacher_id):
+        course_teacher = CourseTeacher.get_by(course_id=course_id, teacher_id=teacher_id)
+        course_teacher.delete()
+
 
 class CourseStudent(models.Model):
     class Meta:
@@ -139,3 +143,7 @@ class CourseStudent(models.Model):
     def delete(self):
         self.deleted = True
         self.save()
+
+    def delete_by(course_id, student_id):
+        course_student = CourseStudent.get_by(course_id=course_id, student_id=student_id)
+        course_student.delete()
