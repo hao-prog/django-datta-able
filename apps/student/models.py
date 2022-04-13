@@ -39,7 +39,7 @@ class Student(models.Model):
             condition &= Q(birthday=birthday)
         if code:
             condition &= Q(code__icontains=code)
-        return Student.objects.filter(condition)
+        return Student.objects.filter(condition).order_by('code')
 
     def create(name, code, avatar, address, phone, birthday, specialized, description):
         if Student.objects.filter(code=code, deleted=False).exists():

@@ -37,6 +37,8 @@ class Account(models.Model):
             raise ValidationError({"username": "Username is existed"})
         if password1 is None or password1 == "":
             raise ValidationError({"password1": "Password cannot be blank"})
+        if len(password1) < 6:
+            raise ValidationError({"password1": "Password must be at least 6 characters"})
         if password1 != password2:
             raise ValidationError({"password2": "Password does not match"})
         account = Account(

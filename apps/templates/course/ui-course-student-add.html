@@ -47,13 +47,13 @@
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>
+                                                        <th style="width: 10%;">
                                                             <div class="form-check">
                                                                 <input type="checkbox" class="form-check-input" onclick="check_all_students()" id="students_check">
                                                                 <label class="form-check-label"></label>
                                                             </div>
                                                         </th>
-                                                        <th>Code</th>
+                                                        <th style="width: 15%;">Code</th>
                                                         <th>Name</th>
                                                     </tr>
                                                 </thead>
@@ -102,6 +102,13 @@
             form.submit();
         } else {
 
+        }
+    }
+
+    function check_all_students() {
+        boxes = document.getElementsByClassName("student")
+        for (let i = 0; i < boxes.length; i++) {
+            boxes[i].checked = document.getElementById("students_check").checked;
         }
     }
 </script>

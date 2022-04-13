@@ -64,7 +64,7 @@ class Course(models.Model):
         id_array = self.courseteacher_set.filter(deleted=False).values_list(
             "teacher_id"
         )
-        return Teacher.objects.filter(id__in=id_array)
+        return Teacher.objects.filter(id__in=id_array, deleted=False)
 
     def get_teachers_exclude(self):
         id_array = self.courseteacher_set.filter(deleted=False).values_list(
@@ -77,7 +77,7 @@ class Course(models.Model):
         id_array = self.coursestudent_set.filter(deleted=False).values_list(
             "student_id"
         )
-        return Student.objects.filter(id__in=id_array)
+        return Student.objects.filter(id__in=id_array, deleted=False)
 
     def get_students_exclude(self):
         id_array = self.coursestudent_set.filter(deleted=False).values_list(

@@ -26,6 +26,8 @@ class Score(models.Model):
 
     def get_scores_by(keyword=None, student_name=None, course_name=None):
         condition = Q(deleted=False)
+        condition &= Q(student__deleted=False)
+        condition &= Q(course__deleted=False)
         if keyword:
             condition &= Q(description__icontains=keyword)
         if student_name:
